@@ -28,12 +28,35 @@
 
     /* --- Hero / Home Section --- */
     .home{
-      height:100vh; display:flex; flex-direction:column;
-      justify-content:center; align-items:center;
-      background: linear-gradient(to right,#ffcc00,#ff9900);
-      text-align:center; padding:2rem;
-    }
-    .home h2{ font-size:2.5rem; color:#333; }
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:2rem;
+  background: url('homebg.jpg') no-repeat center center/cover;
+  color: white;
+  position: relative;
+}
+
+.home::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4); /* adjust darkness */
+  z-index: 0;
+}
+
+.home h2,
+.home p,
+.scroll-down {
+  position: relative;
+  z-index: 1;
+}
+
+    .home h2{font-size: 3rem;color: #ffffff; /* white */}
     .home p{ margin-top:1rem; font-size:1.2rem; }
     .scroll-down{
       margin-top:2rem; background:#333; color:#fff; padding:.8rem 1.5rem;
@@ -123,7 +146,7 @@
   <section class="home" id="home">
     <h2>PROJECT SIRIUS MK. II</h2>
     <p>(SUBSTATION INSPECTION & REMOTE INTERVENTION UTILITY SYSTEM)</p>
-    <button class="scroll-down" onclick="document.querySelector('#blog').scrollIntoView({behavior:'smooth'})">More info ↓</button>
+    <button class="scroll-down" onclick="document.querySelector('#blog').scrollIntoView({behavior:'smooth'})">Read Posts ↓</button>
   </section>
 
   <!-- Blog -->
@@ -233,6 +256,3 @@
   </script>
 </body>
 </html>
-
-
-
