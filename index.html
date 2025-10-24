@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Blog Project — Single Page Groups</title>
+  <style>
+    /* --- Global Styles --- */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background:#f9f9f9; color:#333; line-height:1.6; }
+
+    /* --- Navbar --- */
+    header{
+      position:fixed; top:0; left:0; width:100%;
+      background:#333; color:#fff;
+      padding:1rem 2rem;
+      display:flex; align-items:center; justify-content:space-between;
+      z-index:1000;
+    }
+    header h1 { font-size:1.2rem; }
+
+    nav ul { list-style:none; display:flex; gap:1rem; align-items:center; margin:0; padding:0; }
+    nav ul li a { color:#fff; text-decoration:none; font-weight:500; }
+    nav ul li a:hover { color:#ffcc00; }
+
+    .menu-icon { font-size:1.5rem; cursor:pointer; color:#fff; }
+
+    /* --- Hero / Home Section --- */
+    .home{
+      height:100vh; display:flex; flex-direction:column;
+      justify-content:center; align-items:center;
+      background: linear-gradient(to right,#ffcc00,#ff9900);
+      text-align:center; padding:2rem;
+    }
+    .home h2{ font-size:2.5rem; color:#333; }
+    .home p{ margin-top:1rem; font-size:1.2rem; }
+    .scroll-down{
+      margin-top:2rem; background:#333; color:#fff; padding:.8rem 1.5rem;
+      border-radius:30px; cursor:pointer; border:none; font-size:1rem;
+    }
+    .scroll-down:hover{ background:#555; }
+
+    /* --- Blog Section --- */
+    .blog{
+      padding:6rem 2rem; margin-top:60px; /* offset for header */
+    }
+    .blog h2{ text-align:center; margin-bottom:2rem; }
+    .posts{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem;
+    }
+    .post{
+      background:white; padding:1.5rem; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1);
+      transition:transform .3s ease;
+    }
+    .post:hover{ transform:translateY(-5px); }
+    .post h3{ margin-bottom:.5rem; }
+
+    /* --- Overlay Popup for Groups --- */
+    .overlay{
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.85); display:none;
+      justify-content:center; align-items:center; flex-direction:column;
+      z-index:2000; color:white; text-align:center; backdrop-filter:blur(4px);
+      padding:2rem;
+    }
+    .overlay.show{ display:flex; }
+    .overlay h2{ margin-bottom:1rem; font-size:1.8rem; }
+    .overlay .group-link{
+      display:block; color:white; text-decoration:none; font-size:1.25rem;
+      margin:.5rem 0; padding:.4rem 1rem; border-radius:6px; transition:background .15s, color .15s;
+    }
+    .overlay .group-link:hover{ background: rgba(255,255,255,0.06); color:#ffcc00; }
+    .close-btn{ position:absolute; top:20px; right:24px; font-size:2rem; cursor:pointer; }
+
+    /* --- Group Sections --- */
+    .group-section{
+      padding:5rem 2rem; background:#fff; border-top:2px solid #eee; text-align:center;
+      max-width:1100px; margin:0 auto;
+    }
+    .group-section + .group-section { margin-top:1rem; }
+    /* ensure fixed header doesn't cover anchor targets */
+    .group-section { scroll-margin-top: 96px; }
+    #blog { scroll-margin-top: 96px; }
+
+    /* responsive tweaks */
+    @media (max-width:768px){
+      header{ padding: .8rem 1rem; }
+      .overlay h2{ font-size:1.4rem; }
+      .overlay .group-link{ font-size:1rem; padding:.6rem; }
+      .menu-icon{ font-size:1.2rem; }
+      .home h2{ font-size:2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Feedback and Controls System</h1>
+    <nav>
+      <ul>
+        <li><a href="#home" onclick="closeOverlayImmediate()">Home</a></li>
+        <li><span class="menu-icon" id="menuBtn">☰</span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Overlay Popup for Groups -->
+  <div class="overlay" id="groupOverlay" aria-hidden="true" role="dialog" aria-label="Project groups">
+    <span class="close-btn" id="closeBtn" aria-label="Close groups">×</span>
+    <h2>Project Groups</h2>
+
+    <!-- CALL goToGroup('groupX') to close overlay first, then scroll -->
+    <a class="group-link" href="#group1" onclick="goToGroup(event,'group1')">Group 1 — Robot Arm</a>
+    <a class="group-link" href="#group2" onclick="goToGroup(event,'group2')">Group 2 — Base</a>
+    <a class="group-link" href="#group3" onclick="goToGroup(event,'group3')">Group 3 — Gas Leak Detector</a>
+    <a class="group-link" href="#group4" onclick="goToGroup(event,'group4')">Group 4 — Thermal Imaging</a>
+    <a class="group-link" href="#group5" onclick="goToGroup(event,'group5')">Group 5 — Vibration Sensor</a>
+    <a class="group-link" href="#group6" onclick="goToGroup(event,'group6')">Group 6 — Environmental Monitoring</a>
+  </div>
+
+  <!-- Home -->
+  <section class="home" id="home">
+    <h2>Automated Thermal and Gas Detector Robot</h2>
+    <p>Scroll down or open the menu (☰) to explore groups.</p>
+    <button class="scroll-down" onclick="document.querySelector('#blog').scrollIntoView({behavior:'smooth'})">Read Posts ↓</button>
+  </section>
+
+  <!-- Blog -->
+  <section class="blog" id="blog">
+    <h2>Latest Blog Posts</h2>
+    <div class="posts">
+      <div class="post">
+        <img src="post1.jpg" alt="Post 1 Image" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+        <h3>Post Title 1</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et metus id justo ornare commodo.</p>
+      </div>
+      <div class="post">
+        <img src="post2.jpg" alt="Post 2 Image" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+        <h3>Post Title 2</h3>
+        <p>Praesent tincidunt sapien non metus vestibulum, et tincidunt ligula ullamcorper.</p>
+      </div>
+      <div class="post">
+        <img src="post3.jpg" alt="Post 3 Image" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+        <h3>Post Title 3</h3>
+        <p>Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Group Sections (same page) -->
+  <section class="group-section" id="group1">
+    <h2>Group 1 — Robot Arm</h2>
+    <p>Details and content for Group 1 (Robot Arm) go here. Add images, links, and text.</p>
+  </section>
+
+  <section class="group-section" id="group2">
+    <h2>Group 2 — Base</h2>
+    <p>Details and content for Group 2 (Base) go here.</p>
+  </section>
+
+  <section class="group-section" id="group3">
+    <h2>Group 3 — Gas Leak Detector</h2>
+    <p>Details and content for Group 3 (Gas Leak Detector) go here.</p>
+  </section>
+
+  <section class="group-section" id="group4">
+    <h2>Group 4 — Thermal Imaging</h2>
+    <p>Details and content for Group 4 (Thermal Imaging) go here.</p>
+  </section>
+
+  <section class="group-section" id="group5">
+    <h2>Group 5 — Vibration Sensor</h2>
+    <p>Details and content for Group 5 (Vibration Sensor) go here.</p>
+  </section>
+
+  <section class="group-section" id="group6">
+    <h2>Group 6 — Environmental Monitoring</h2>
+    <p>Details and content for Group 6 (Environmental Monitoring) go here.</p>
+  </section>
+
+  <script>
+    // Elements
+    const overlay = document.getElementById('groupOverlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // Toggle overlay open/close
+    menuBtn.addEventListener('click', () => {
+      overlay.classList.add('show');
+      overlay.setAttribute('aria-hidden','false');
+    });
+    closeBtn.addEventListener('click', () => {
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden','true');
+    });
+
+    // Close overlay if escape pressed or clicking outside content
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && overlay.classList.contains('show')) {
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden','true');
+      }
+    });
+    // clicking outside links/center closes overlay
+    overlay.addEventListener('click', (e) => {
+      if(e.target === overlay) {
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden','true');
+      }
+    });
+
+    // Close overlay immediately for header Home link (prevents overlay stuck)
+    function closeOverlayImmediate(){
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden','true');
+    }
+
+    // Main helper: close overlay, then scroll to target ID
+    function goToGroup(event, targetId){
+      event.preventDefault(); // stop immediate anchor navigation
+      // hide overlay first
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden','true');
+
+      // small delay ensures overlay hidden before scroll (improves reliability)
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if(el){
+          // use native smooth scroll; the CSS scroll-margin-top prevents header overlap
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 120);
+    }
+  </script>
+</body>
+</html>
