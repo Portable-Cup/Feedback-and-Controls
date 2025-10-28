@@ -28,52 +28,93 @@
 
     /* --- Hero / Home Section --- */
     .home{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:2rem;
-  background: url('homebg.jpg') no-repeat center center/cover;
-  color: white;
-  position: relative;
-}
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:2rem;
+      background: url('homebg.jpg') no-repeat center center/cover;
+      color: white;
+      position: relative;
+    }
 
-.home::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4); /* adjust darkness */
-  z-index: 0;
-}
+    .home::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 0;
+    }
 
-.home h2,
-.home p,
-.scroll-down {
-  position: relative;
-  z-index: 1;
-}
+    .home h2,
+    .home p,
+    .scroll-down {
+      position: relative;
+      z-index: 1;
+    }
 
-    .home h2{font-size: 3rem;color: #ffffff; /* white */}
-    .home p{ margin-top:1rem; font-size:1.2rem; }
+    .home h2 { font-size: 3rem; color: #ffffff; }
+    .home p { margin-top:1rem; font-size:1.2rem; }
     .scroll-down{
       margin-top:2rem; background:#333; color:#fff; padding:.8rem 1.5rem;
       border-radius:30px; cursor:pointer; border:none; font-size:1rem;
     }
     .scroll-down:hover{ background:#555; }
 
+    /* --- Narratives Section --- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+      will-change: opacity, transform;
+    }
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .narrative-images {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .narrative-images img {
+      width: 45%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.show .narrative-images img {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @media (max-width:600px){
+      .narrative-images img { width: 100%; }
+    }
+
     /* --- Blog Section --- */
     .blog{
-      padding:6rem 2rem; margin-top:60px; /* offset for header */
+      padding:6rem 2rem;
+      margin-top:60px;
     }
     .blog h2{ text-align:center; margin-bottom:2rem; }
     .posts{
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:2rem;
     }
     .post{
-      background:white; padding:1.5rem; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1);
+      background:white;
+      padding:1.5rem;
+      border-radius:10px;
+      box-shadow:0 2px 5px rgba(0,0,0,0.1);
       transition:transform .3s ease;
     }
     .post:hover{ transform:translateY(-5px); }
@@ -102,11 +143,9 @@
       max-width:1100px; margin:0 auto;
     }
     .group-section + .group-section { margin-top:1rem; }
-    /* ensure fixed header doesn't cover anchor targets */
     .group-section { scroll-margin-top: 96px; }
     #blog { scroll-margin-top: 96px; }
 
-    /* responsive tweaks */
     @media (max-width:768px){
       header{ padding: .8rem 1rem; }
       .overlay h2{ font-size:1.4rem; }
@@ -133,7 +172,6 @@
     <span class="close-btn" id="closeBtn" aria-label="Close groups">×</span>
     <h2>Project Groups</h2>
 
-    <!-- CALL goToGroup('groupX') to close overlay first, then scroll -->
     <a class="group-link" href="#group1" onclick="goToGroup(event,'group1')">Group 1 — Robot Arm</a>
     <a class="group-link" href="#group2" onclick="goToGroup(event,'group2')">Group 2 — Base</a>
     <a class="group-link" href="#group3" onclick="goToGroup(event,'group3')">Group 3 — Gas Leak Detector</a>
@@ -146,8 +184,83 @@
   <section class="home" id="home">
     <h2>PROJECT SIRIUS MK. II</h2>
     <p>(SUBSTATION INSPECTION & REMOTE INTERVENTION UTILITY SYSTEM)</p>
-    <button class="scroll-down" onclick="document.querySelector('#blog').scrollIntoView({behavior:'smooth'})">More Info ↓</button>
+    <button class="scroll-down" onclick="document.querySelector('#narratives').scrollIntoView({behavior:'smooth'})">More Info ↓</button>
   </section>
+
+<!-- Narratives Section -->
+<section class="narratives" id="narratives" style="padding:3rem 2rem;">
+  <!-- Narrative 1 -->
+  <div class="fade-in narrative" style="background:#fff; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem;">
+    <h2>Concept and Design</h2>
+    <p>
+      Project SIRIUS MK. II was born from a collective vision — to create a system that could inspect and respond to
+      electrical substation conditions without direct human exposure. The group began by identifying the major risks
+      involved in manual inspection, including high-voltage hazards and environmental instability. Early brainstorming
+      sessions led to the conceptualization of a multi-functional robotic unit capable of remote navigation, sensing,
+      and control. We developed preliminary sketches and design flowcharts that mapped out every movement and data
+      feedback process. Throughout this phase, the team emphasized safety, precision, and user-friendly control. The
+      initial design established a solid foundation for the mechanical, electrical, and software components that would
+      follow in later stages.
+    </p>
+    <div class="narrative-images">
+      <img src="narrative1a.jpg" alt="Initial design sketch">
+      <img src="narrative1b.jpg" alt="Team discussion">
+    </div>
+  </div>
+
+  <!-- Narrative 2 -->
+  <div class="fade-in narrative" style="background:#fff; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem;">
+    <h2>Building and Integration</h2>
+    <p>
+      Once the concept was finalized, the group transitioned into the engineering and integration stage. Each subsystem
+      — mechanical, electrical, and software — was designed to operate harmoniously under a centralized feedback and
+      control system. Sensors such as thermal cameras, gas detectors, and vibration analyzers were integrated to
+      continuously monitor substation environments. The mechanical team constructed a stable platform and robotic arm
+      capable of precise movement and manipulation. Meanwhile, the control logic was programmed into the PLC and
+      microcontrollers to ensure reliable communication between sensors and actuators. This stage required close
+      collaboration, as each component was tested for response time, accuracy, and synchronization. Through constant
+      refinement, the system achieved stable real-time operation.
+    </p>
+    <div class="narrative-images">
+      <img src="narrative2a.jpg" alt="Sensor wiring and assembly">
+      <img src="narrative2b.jpg" alt="Testing and calibration process">
+    </div>
+  </div>
+
+  <!-- Narrative 3 -->
+  <div class="fade-in narrative" style="background:#fff; padding:1.25rem; border-radius:10px;">
+    <h2>Final Testing and Results</h2>
+    <p>
+      The final phase of Project SIRIUS MK. II focused on rigorous testing and performance validation. The system was
+      evaluated under controlled substation-like conditions, where simulated gas leaks, abnormal heat levels, and
+      structural vibrations were introduced. Through these tests, the sensors successfully detected anomalies and
+      transmitted data to the main control interface. The robotic arm performed remote interventions such as sample
+      retrieval and visual inspection. Each test iteration improved both system accuracy and operational efficiency.
+      In the end, the project demonstrated a reliable and scalable solution for remote monitoring, capable of
+      reducing human exposure to hazardous environments. The successful demonstration marked a milestone achievement,
+      showcasing the team’s commitment to innovation, safety, and engineering excellence.
+    </p>
+    <div class="narrative-images">
+      <img src="narrative3a.jpg" alt="Prototype demonstration">
+      <img src="narrative3b.jpg" alt="Final testing phase">
+    </div>
+  </div>
+
+  <!-- Narrative 4 -->
+  <div class="fade-in narrative" style="background:#fff; padding:1.25rem; border-radius:10px;">
+    <h2>Message from the team: "BSEE - 3A"</h2>
+    <p>
+      Project SIRIUS MK. II represents more than just a technical achievement—it embodies teamwork, innovation,
+      and perseverance. Through months of planning, designing, and testing, the team not only developed an intelligent
+      inspection system but also gained valuable lessons in collaboration and problem-solving. The project demonstrated
+      how modern automation can significantly enhance operational safety and efficiency in electrical substations.
+      Beyond the hardware and programming, it taught the importance of persistence, adaptability, and shared goals.
+      As future engineers, we envision this project as a stepping stone toward smarter, safer, and more sustainable
+      industrial solutions. The experience has strengthened our confidence to take on even greater challenges ahead.
+    </p>
+  </div>
+
+</section>
 
   <!-- Blog -->
   <section class="blog" id="blog">
@@ -168,45 +281,22 @@
       </div>
     </div>
   </section>
+ </style>
 
-  <!-- Group Sections (same page) -->
-  <section class="group-section" id="group1">
-    <h2>Group 1 — Robot Arm</h2>
-    <p>Details and content for Group 1 (Robot Arm) go here. Add images, links, and text.</p>
-  </section>
-
-  <section class="group-section" id="group2">
-    <h2>Group 2 — Base</h2>
-    <p>Details and content for Group 2 (Base) go here.</p>
-  </section>
-
-  <section class="group-section" id="group3">
-    <h2>Group 3 — Gas Leak Detector</h2>
-    <p>Details and content for Group 3 (Gas Leak Detector) go here.</p>
-  </section>
-
-  <section class="group-section" id="group4">
-    <h2>Group 4 — Thermal Imaging</h2>
-    <p>Details and content for Group 4 (Thermal Imaging) go here.</p>
-  </section>
-
-  <section class="group-section" id="group5">
-    <h2>Group 5 — Vibration Sensor</h2>
-    <p>Details and content for Group 5 (Vibration Sensor) go here.</p>
-  </section>
-
-  <section class="group-section" id="group6">
-    <h2>Group 6 — Environmental Monitoring</h2>
-    <p>Details and content for Group 6 (Environmental Monitoring) go here.</p>
-  </section>
+  <!-- Group Sections -->
+  <section class="group-section" id="group1"><h2>Group 1 — Robot Arm</h2><p>Details and content for Group 1 (Robot Arm) go here.</p></section>
+  <section class="group-section" id="group2"><h2>Group 2 — Base</h2><p>Details and content for Group 2 (Base) go here.</p></section>
+  <section class="group-section" id="group3"><h2>Group 3 — Gas Leak Detector</h2><p>Details and content for Group 3 (Gas Leak Detector) go here.</p></section>
+  <section class="group-section" id="group4"><h2>Group 4 — Thermal Imaging</h2><p>Details and content for Group 4 (Thermal Imaging) go here.</p></section>
+  <section class="group-section" id="group5"><h2>Group 5 — Vibration Sensor</h2><p>Details and content for Group 5 (Vibration Sensor) go here.</p></section>
+  <section class="group-section" id="group6"><h2>Group 6 — Environmental Monitoring</h2><p>Details and content for Group 6 (Environmental Monitoring) go here.</p></section>
 
   <script>
-    // Elements
+    // --- Overlay menu ---
     const overlay = document.getElementById('groupOverlay');
     const menuBtn = document.getElementById('menuBtn');
     const closeBtn = document.getElementById('closeBtn');
 
-    // Toggle overlay open/close
     menuBtn.addEventListener('click', () => {
       overlay.classList.add('show');
       overlay.setAttribute('aria-hidden','false');
@@ -215,45 +305,60 @@
       overlay.classList.remove('show');
       overlay.setAttribute('aria-hidden','true');
     });
-
-    // Close overlay if escape pressed or clicking outside content
     window.addEventListener('keydown', (e) => {
       if(e.key === 'Escape' && overlay.classList.contains('show')) {
         overlay.classList.remove('show');
         overlay.setAttribute('aria-hidden','true');
       }
     });
-    // clicking outside links/center closes overlay
     overlay.addEventListener('click', (e) => {
       if(e.target === overlay) {
         overlay.classList.remove('show');
         overlay.setAttribute('aria-hidden','true');
       }
     });
-
-    // Close overlay immediately for header Home link (prevents overlay stuck)
     function closeOverlayImmediate(){
       overlay.classList.remove('show');
       overlay.setAttribute('aria-hidden','true');
     }
-
-    // Main helper: close overlay, then scroll to target ID
     function goToGroup(event, targetId){
-      event.preventDefault(); // stop immediate anchor navigation
-      // hide overlay first
+      event.preventDefault();
       overlay.classList.remove('show');
       overlay.setAttribute('aria-hidden','true');
-
-      // small delay ensures overlay hidden before scroll (improves reliability)
       setTimeout(() => {
         const el = document.getElementById(targetId);
-        if(el){
-          // use native smooth scroll; the CSS scroll-margin-top prevents header overlap
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if(el){ el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
       }, 120);
     }
+
+    // --- Fade-in Animation ---
+    (function(){
+      const items = document.querySelectorAll('.fade-in');
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if(entry.isIntersecting){
+              entry.target.classList.add('show');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18 });
+        items.forEach(i => io.observe(i));
+      } else {
+        const onScroll = () => {
+          const trigger = window.innerHeight * 0.9;
+          items.forEach(el => {
+            if(el.classList.contains('show')) return;
+            const rect = el.getBoundingClientRect();
+            if(rect.top < trigger){ el.classList.add('show'); }
+          });
+        };
+        window.addEventListener('scroll', onScroll);
+        window.addEventListener('load', onScroll);
+        onScroll();
+      }
+    })();
   </script>
+
 </body>
 </html>
-
