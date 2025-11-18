@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PROJECT SIRIUS MK. II</title>
+  <style>
+    /* --- Global Styles --- */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background:#f9f9f9; color:#333; line-height:1.6; }
+
+    /* --- Navbar --- */
+    header{
+      position:fixed; top:0; left:0; width:100%;
+      background:rgba(0, 31, 63, 0.9); color:#fff;
+      padding:1rem 2rem;
+      display:flex; align-items:center; justify-content:space-between;
+      z-index:1000;
+    }
+    header h1 { font-size:1.2rem; }
+    nav ul { list-style:none; display:flex; gap:1rem; align-items:center; margin:0; padding:0; }
+    nav ul li a { color:#fff; text-decoration:none; font-weight:500; }
+    nav ul li a:hover { color:#ffcc00; }
+    .menu-icon { font-size:1.5rem; cursor:pointer; color:#fff; }
+
+    /* --- Hero / Home Section --- */
+    .home {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: url('homebg.jpg') center/cover no-repeat;
+      text-align: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+    .home::before {
+      content: "";
+      position: absolute;
+      top: 0; left:0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index:1;
+    }
+    .home h2,
+    .home p,
+    .scroll-down { position: relative; z-index:2; color:white; }
+    .home h2 { font-size:3rem; }
+    .home p { margin-top:1rem; font-size:1.2rem; }
+    .scroll-down{
+      margin-top:2rem; background:#333; color:#fff; padding:.8rem 1.5rem;
+      border-radius:30px; cursor:pointer; border:none; font-size:1rem;
+    }
+    .scroll-down:hover{ background:#555; }
+
+    /* --- Narratives Section --- */
+    .fade-in {
+      opacity:0;
+      transform: translateY(30px);
+      transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+      will-change: opacity, transform;
+    }
+    .fade-in.show { opacity:1; transform: translateY(0); }
+    .narrative-images { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .narrative-images img {
+      width:45%; border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      opacity:0; transform:scale(0.98);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.show .narrative-images img { opacity:1; transform:scale(1); }
+    @media (max-width:600px){ .narrative-images img { width:100%; } }
+
+    /* --- Blog Section --- */
+    .blog{ padding:6rem 2rem; margin-top:60px; }
+    .blog h2{ text-align:center; margin-bottom:2rem; }
+    .posts{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem;
+    }
+    .post{
+      background:white; padding:1.5rem; border-radius:10px;
+      box-shadow:0 2px 5px rgba(0,0,0,0.1); transition:transform .3s ease;
+    }
+    .post:hover{ transform:translateY(-5px); }
+    .post h3{ margin-bottom:.5rem; }
+
+    /* --- Overlay Popup for Groups --- */
+    .overlay{
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.85); display:none;
+      justify-content:center; align-items:center; flex-direction:column;
+      z-index:2000; color:white; text-align:center; backdrop-filter:blur(4px);
+      padding:2rem;
+    }
+    .overlay.show{ display:flex; }
+    .overlay h2{ margin-bottom:1rem; font-size:1.8rem; }
+    .overlay .group-link{
+      display:block; color:white; text-decoration:none; font-size:1.25rem;
+      margin:.5rem 0; padding:.4rem 1rem; border-radius:6px;
+      transition:background .15s, color .15s;
+    }
+    .overlay .group-link:hover{ background: rgba(255,255,255,0.06); color:#ffcc00; }
+    .close-btn{ position:absolute; top:20px; right:24px; font-size:2rem; cursor:pointer; }
+
+.members-overlay {
+  background: rgba(0,0,0,0.9);
+}
+
+.members-list {
+  text-align: left;
+  font-size: 1.1rem;
+  list-style: none;
+  margin-top: 20px;
+}
+
+.members-list li {
+  margin: 8px 0;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.group-members-btn {
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: rgba(0, 31, 63, 0.9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.group-members-btn:hover {
+  background: #666;
+}
+
+.group-gallery-btn {
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: rgba(0, 31, 63, 0.9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.group-gallery-btn:hover {
+  background: #666;
+}
+
+
+    /* --- Slideshow Overlay --- */
+    .slideshow-overlay{
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.9); display:none;
+      justify-content:center; align-items:center; flex-direction:column;
+      z-index:3000; color:white; text-align:center;
+      padding:2rem;
+    }
+    .slideshow-overlay.show{ display:flex; }
+    .slideshow-overlay img{
+      max-width:90%; max-height:80vh; border-radius:10px; margin-bottom:1rem;
+      box-shadow:0 0 20px rgba(0,0,0,0.5);
+    }
+    .slideshow-controls{ display:flex; gap:1rem; }
+    .slideshow-controls button{
+      padding:.5rem 1rem; font-size:1.1rem; border:none; border-radius:6px;
+      cursor:pointer; background:#333; color:#fff;
+    }
+    .slideshow-controls button:hover{ background:#555; }
+
+    /* --- Group Sections --- */
+    .group-section{
+      padding:5rem 2rem; background:#fff; border-top:2px solid #eee; text-align:center;
+      max-width:1100px; margin:0 auto;
+    }
+    .group-section + .group-section { margin-top:1rem; }
+    .group-section { scroll-margin-top: 96px; }
+    #blog { scroll-margin-top: 96px; }
+
+    @media (max-width:768px){
+      header{ padding: .8rem 1rem; }
+      .overlay h2{ font-size:1.4rem; }
+      .overlay .group-link{ font-size:1rem; padding:.6rem; }
+      .menu-icon{ font-size:1.2rem; }
+      .home h2{ font-size:2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <h1>Feedback and Controls System</h1>
+    <nav>
+      <ul>
+        <li><a href="#home" onclick="closeOverlayImmediate()">Home</a></li>
+        <li><span class="menu-icon" id="menuBtn">☰</span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Overlay Popup for Groups -->
+  <div class="overlay" id="groupOverlay" aria-hidden="true" role="dialog" aria-label="Project groups">
+    <span class="close-btn" id="closeBtn" aria-label="Close groups">×</span>
+    <h2>Project Groups</h2>
+    <a class="group-link" href="#group1" onclick="goToGroup(event,'group1')">Group 1 - Robot Arm</a>
+    <a class="group-link" href="#group2" onclick="goToGroup(event,'group2')">Group 2 - Base</a>
+    <a class="group-link" href="#group3" onclick="goToGroup(event,'group3')">Group 3 - Environmental Monitoring</a>
+    <a class="group-link" href="#group4" onclick="goToGroup(event,'group4')">Group 4 - Thermal Imaging</a>
+    <a class="group-link" href="#group5" onclick="goToGroup(event,'group5')">Group 5 - Vibration Sensor</a>
+    <a class="group-link" href="#group6" onclick="goToGroup(event,'group6')">Group 6 - Web Development</a>
+  </div>
+
+  <!-- Home -->
+  <section class="home" id="home">
+    <h2>PROJECT SIRIUS MK. II</h2>
+    <p>(SUBSTATION INSPECTION & REMOTE INTERVENTION UTILITY SYSTEM)</p>
+    <button class="scroll-down" onclick="document.querySelector('#narratives').scrollIntoView({behavior:'smooth'})">More Info ↓</button>
+  </section>
+
+  <!-- Narratives Section -->
+  <section class="narratives" id="narratives" style="padding:3rem 2rem;">
+    <!-- Narrative 1 -->
+    <div class="fade-in narrative" style="background:#fff; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem;">
+      <h2>Progress in the Month of October</h2>
+      <p> 
+      The development of the Project Sirius Mk. II began on October 16, 2025, with the preparation of the initial sketch design for the exterior and base of the system. 
+During this stage, the team also conducted separate test trials for the ultrasonic sensor, L293D motor driver, and servo motor to verify the functionality of each component.
+From October 23 to 27, 2025, further consultations revealed that the L293D motor driver was not compatible with the high-powered motors being used. Consequently, the team decided to replace it with the BTS7960 high-current H-bridge module, which could better support the required current capacity.
+Orders were placed for two BTS7960 modules and two RS390 electric motor gearboxes.
+By October 28, 2025, we focused to the parallel development of the project’s web development. The website was designed to feature a clean and responsive layout with a home button and a menu that contained six clickable group links.
+Its main page displayed multiple narratives enhanced with smooth fade-in animations that activated as the user scrolled, creating an engaging and interactive reading experience.
+On October 29, 2025, progress continued with the initial construction phase of the robotic arm. The mechanical components, including bolts, screws, servo motors, servo brackets, and other parts, were successfully assembled. A physical inspection was conducted to verify the stability of all components, ensuring that moving joints were properly aligned and free from obstructions.
+Although minor adjustments were made during assembly to ensure proper alignment, no major issues were encountered. The structure was declared ready for the next stage, which includes wiring, electronic integration, and programming.
+By October 31, 2025, the ordered BTS7960 motor driver modules had arrived, while the RS390 electric motor gearbox order was cancelled and reordered due to supplier issues. The replacement components were subsequently placed in transit.
+      </p>
+      <div class="narrative-images">
+        <img src="narrative1a.jpeg" alt="Initial design sketch">
+        <img src="narrative1b.jpg" alt="Team discussion">
+      </div>
+    </div>
+
+    <!-- Narrative 2 -->
+    <div class="fade-in narrative" style="background:#fff; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem;">
+      <h2>Progress in the Month of November</h2>
+  <p>
+On November 3, 2025, code preparation began for the integration of the BTS7960 motor driver and the RS390 electric motor gearbox, marking the beginning of the programming phase.
+Parallel to this, on November 5, 2025, progress was made on the vibration sensor subsystem. The printed circuit board (PCB) layout for the vibration sensor was designed, and the associated electronic components were tested.
+All components were found to be working properly and ready for integration into the system.On November 12, the group made progress on the electrical integration of the
+project by completing the initial wiring of the power supply and its connections. The team
+successfully identified and connected the necessary terminals—Live (AC), Neutral (AC),
+Ground, V– (DC), and V+ (DC)—to ensure that the system receives proper and stable
+power distribution. This step allowed the group to test the unit and verify that the
+components respond correctly to the electrical input.
+During the testing phase, it was observed that some of the turns were unable to perform
+their full range of motion. This issue is related to the programming rather than the wiring,
+indicating that further adjustments in the code may be required to achieve smooth and
+complete movement. Other than this, no major complications were encountered.
+With the wiring completed, the project is now prepared for the next stage, which includes
+refining the coding and conducting additional tests to achieve optimal functionality.
+On November 13, 2025, we printed the PCB Layout to prepare for etching and soldering by next week.
+    </p>
+      <div class="narrative-images">
+        <img src="narrative2a.jpeg" alt="Vibration sensor PCB">
+        <img src="narrative2b.png" alt="ENVIRONMENTAL MONITORING PCB 3">
+      </div>
+    </div>
+
+    <!-- Narrative 3 -->
+    <div class="fade-in narrative" style="background:#fff; padding:1.25rem; border-radius:10px;">
+      <h2>In summary</h2>
+    <p>
+     Project Sirius Mk. II has progressed smoothly. The robotic arm’s mechanical structure has been fully assembled and is now prepared for electronic integration and programming. The website component has achieved its core functionality, featuring a responsive and user-friendly interface that enhances accessibility across multiple platforms. Meanwhile, the E-Monitoring system and vibration sensor modules continue to advance, with only minor issues encountered due to faulty sensor components that are currently being addressed. Moving forward, the team will focus on integrating the robotic arm’s electronic system, finalizing the motor driver programming, retesting the replacement DHT22 sensor, and conducting comprehensive system testing to ensure the complete and reliable operation of Project Sirius Mk. II.
+    </p>
+      <div class="narrative-images">
+        <img src="narrative3a.jpg" alt="Robot Arm">
+        <img src="narrative3b.jpg" alt="Thermal Sensor">
+      </div>
+    </div>
+
+    <!-- Narrative 4 -->
+    <div class="fade-in narrative" style="background:#fff; padding:1.25rem; border-radius:10px;">
+      <h2>Message from the team: "BSEE - 3A"</h2>
+    <p>
+      Project SIRIUS MK. II represents more than just a technical achievement—it embodies teamwork, innovation,
+      and perseverance. Through months of planning, designing, and testing, the team not only developed an intelligent
+      inspection system but also gained valuable lessons in collaboration and problem-solving. The project demonstrated
+      how modern automation can significantly enhance operational safety and efficiency in electrical substations.
+      Beyond the hardware and programming, it taught the importance of persistence, adaptability, and shared goals.
+      As future engineers, we envision this project as a stepping stone toward smarter, safer, and more sustainable
+      industrial solutions. The experience has strengthened our confidence to take on even greater challenges ahead.
+    </p>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section class="blog" id="blog">
+    <h2>All Rights Reserved.</h2>
+    <div class="posts">
+      <div class="post">
+        <img src="bsee3a.jpg" alt="BSEE 3A" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+        <h3>BSEE-3A</h3>
+        <p>Bicol University College of Engineering, Legazpi City, Albay, Philippines, 4500</p>
+      </div>
+      <div class="post">
+        <img src="logos.jpg" alt="IIEE LOGO" style="width:100%; border-radius:1px;">
+        <h3>IIEE FACULTY</h3>
+        <p>Engr. Rogie Mar A. Bolon</p>
+        <p>Engr. Vincent Domo Diaz</p>
+        <p>Engr. Melody Mae P. Montas</p>
+        <p>Institute of Integrated Electrical Engineers</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Group Sections -->
+  <section class="group-section" id="group1">
+    <h2>Group 1 - Robot Arm</h2>
+    <p>Purpose / Function:
+	Designed to demonstrate mechanical movement using servo motors; intended for controlled motion once electronics and programming are integrated.
+
+	Current Known Features:
+	Fully assembled mechanical structure with bolts, screws, servo motors, and servo brackets.
+    </p>
+	<button class="group-gallery-btn" onclick="openSlideshow('group1')">📷 Gallery</button>
+	<button class="group-members-btn" onclick="openMembers('group1')">👥 Members</button>
+  </section>
+
+  <section class="group-section" id="group2">
+    <h2>Group 2 - Base</h2>
+    <p>Purpose / Function:
+	Provides foundation for the robot arm system; part of the exterior and base sketch created between Oct 16–22.
+
+	Current Known Features:
+	Base design completed during early sketching phase.
+    </p>
+	<button class="group-gallery-btn" onclick="openSlideshow('group2')">📷 Gallery</button>
+	<button class="group-members-btn" onclick="openMembers('group2')">👥 Members</button>
+  </section>
+
+  <section class="group-section" id="group3">
+    <h2>Group 3 - Environmental Monitoring</h2>
+    <p>Purpose / Function:
+	To monitor environmental parameters such as temperature and humidity.
+	Current Progress:
+	The AHT20 sensor has arrived as a replacement for previous faulty temperature sensors. The component has been tested and is fully functional.
+	A PCB layout for the environmental monitoring module has been created, and the team is preparing to print and etch the board for integration into the system.
+	This will provide accurate and reliable environmental data for monitoring purposes within Project Sirius Mk. II.
+   </p>
+	<button class="group-gallery-btn" onclick="openSlideshow('group3')">📷 Gallery</button>
+	<button class="group-members-btn" onclick="openMembers('group3')">👥 Members</button>
+  </section>
+
+  <section class="group-section" id="group4">
+    <h2>Group 4 - Thermal Imaging</h2>
+    <p>Purpose / Function:
+	To capture thermal imagery of the environment using a drone-based system.
+	Current Known Features / Progress:
+	The drone has been calibrated for flight, including connecting the remote control to a mobile device for live footage mirroring and adjusting manual controls for precise operation. 
+	Test flights have been conducted to determine the maximum control distance.
+    </p>
+	<button class="group-gallery-btn" onclick="openSlideshow('group4')">📷 Gallery</button>
+	<button class="group-members-btn" onclick="openMembers('group4')">👥 Members</button>
+  </section>
+
+  <section class="group-section" id="group5">
+    <h2>Group 5 - Vibration Sensor</h2>
+    <p>Purpose / Function:
+	Detects vibration as part of the monitoring system.
+	Current Known Features:
+	PCB layout completed; all electronic components tested and working as of Nov 5.
+    </p>
+	<button class="group-gallery-btn" onclick="openSlideshow('group5')">📷 Gallery</button>
+	<button class="group-members-btn" onclick="openMembers('group5')">👥 Members</button>
+  </section>
+
+  <section class="group-section" id="group6">
+    <h2>Group 6 - Web Development</h2>
+    <p>Purpose / Function:
+	Acts as a visual and interactive platform for the project.
+	Current Features:
+	Clean, responsive layout
+	Home button + menu with six group links 
+	Overlays for members and galleries are integrated, with smooth UI interactions.
+	Scroll-triggered fade-in animations for narratives
+    </p>
+	<button class="group-gallery-btn" onclick="openSlideshow('group6')">📷 Gallery</button>
+	<button class="group-members-btn" onclick="openMembers('group6')">👥 Members</button>
+  </section>
+
+	<!-- Members Overlay -->
+  <div id="membersOverlay" class="slideshow-overlay members-overlay">
+  <div class="slideshow-content">
+    <h2 id="membersTitle">Members</h2>
+    <ul id="membersList" class="members-list"></ul>
+    <button class="close-slideshow-btn" id="closeMembers">✕</button>
+  </div>
+</div>
+
+  <!-- Slideshow Overlay -->
+  <div class="slideshow-overlay" id="slideshowOverlay">
+    <span class="close-btn" id="closeSlideshow">×</span>
+    <h2 id="slideshowTitle">Gallery</h2>
+    <img id="slideshowImg" src="" alt="Slideshow image">
+    <div class="slideshow-controls">
+      <button id="prevSlide">❮ Prev</button>
+      <button id="nextSlide">Next ❯</button>
+    </div>
+  </div>
+
+  <script>
+    // --- Overlay menu ---
+    const overlay = document.getElementById('groupOverlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    menuBtn.addEventListener('click', () => { overlay.classList.add('show'); overlay.setAttribute('aria-hidden','false'); });
+    closeBtn.addEventListener('click', () => { overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); });
+    window.addEventListener('keydown', (e) => { if(e.key==='Escape' && overlay.classList.contains('show')) { overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); } });
+    overlay.addEventListener('click', (e)=>{ if(e.target===overlay){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); } });
+    function closeOverlayImmediate(){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); }
+    function goToGroup(event,targetId){ event.preventDefault(); overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); setTimeout(()=>{ const el=document.getElementById(targetId); if(el){ el.scrollIntoView({behavior:'smooth', block:'start'});} },120); }
+
+    // --- Fade-in Animation ---
+    (function(){
+      const items=document.querySelectorAll('.fade-in');
+      if('IntersectionObserver' in window){
+        const io=new IntersectionObserver(entries=>{
+          entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('show'); io.unobserve(entry.target); } });
+        },{ threshold:0.18 });
+        items.forEach(i=>io.observe(i));
+      } else {
+        const onScroll=()=>{ const trigger=window.innerHeight*0.9; items.forEach(el=>{ if(el.classList.contains('show')) return; const rect=el.getBoundingClientRect(); if(rect.top<trigger){ el.classList.add('show'); }}); };
+        window.addEventListener('scroll',onScroll);
+        window.addEventListener('load',onScroll);
+        onScroll();
+      }
+    })();
+// Members data per group
+let groupMembers = {
+  group1: ["1. Ephraim Isaac Baladia", "2. Irish Heart Melitante", "3. Janelle Menes Adille", "4. Kiana Gragas", "5. Roni Ydelle Vicente", "6. Yale Gwyneth Manlapas", "7. Vincent Paul B. Cellon", "8. Louis Adrian Monte"],
+  group2: ["1. Raneer Dasallas", "2. Eila Lorraine Obal", "3. Hannah Beatrice Catalan", "4. Ma Isabel Gata", "5. Liam Noel Sanao"],
+  group3: ["1. Bernal, Janvee Louigy", "2. Madrona, Iverson", "3 Reodique, Hera Gabrielle", "4. Alcozar, Ernest John C."],
+  group4: ["1. Ericson Jake Borgonia", "2. Francis Santelices", "3. Celine Caceres", "4. Jan Andrei Bea", "5. Jefferson Palenzuela", "6. Julian Marcel Sambajon", "7. Anthony Zamora", "8. Lito Somera"],
+  group5: ["1. Jesie John Apoon ", "2. John Mark Bitancur", "3. Sheen Cernechez", "4. Kamilia Jadie", "5. Cesar Sapinoso"],
+  group6: ["1. Cantos, Bren Christian", "2. Pascua, Eliah Jane"]
+};
+
+const membersOverlay = document.getElementById("membersOverlay");
+const membersList = document.getElementById("membersList");
+const membersTitle = document.getElementById("membersTitle");
+const closeMembers = document.getElementById("closeMembers");
+
+// Open Members Popup
+function openMembers(groupId) {
+  membersTitle.textContent = `Members — ${groupId}`;
+  membersList.innerHTML = "";
+
+  groupMembers[groupId].forEach(m => {
+    let li = document.createElement("li");
+    li.textContent = m;
+    membersList.appendChild(li);
+  });
+
+  membersOverlay.classList.add("show");
+}
+
+// Close Members Popup
+closeMembers.addEventListener("click", () => {
+  membersOverlay.classList.remove("show");
+});
+
+// Close if clicking outside
+membersOverlay.addEventListener("click", e => {
+  if (e.target === membersOverlay) {
+    membersOverlay.classList.remove("show");
+  }
+});
+
+    // --- Slideshow ---
+    const groupImages={
+      group1:['group1_1.jpg','group1_2.jpg','group1_3.jpg','group1_4.jpg','group1_5.jpg','group1_6.jpg','group1_7.jpg','group1_8.jpg','group1_9.jpg','group1_10.jpg','group1_11.jpg','group1_12.jpg','group1_13.jpg','group1_14.jpg','group1_15.jpg'],
+      group2:['group2_1.jpg','group2_2.jpg','group2_3.jpg','group2_4.jpg','group2_5.jpg','group2_6.jpg','group2_7.jpg','group2_8.jpg','group2_9.jpg','group2_10.jpg','group2_11.jpg','group2_12.jpg','group2_13.jpg','group2_14.jpg','group2_15.jpg'],
+      group3:['group3_1.jpg','group3_2.jpg','group3_3.jpg','group3_4.jpg','group3_5.jpg','group3_6.jpg','group3_7.jpg','group3_8.jpg','group3_9.jpg','group3_10.jpg','group3_11.jpg','group3_12.jpg','group3_13.jpg','group3_14.jpg','group3_15.jpg'],
+      group4:['group4_1.jpg','group4_2.jpg','group4_3.jpg','group4_4.jpg','group4_5.jpg','group4_6.jpg','group4_7.jpg','group4_8.jpg','group4_9.jpg','group4_10.jpg','group4_11.jpg','group4_12.jpg','group4_13.jpg','group4_14.jpg','group4_15.jpg'],
+      group5:['group5_1.jpg','group5_2.jpg','group5_3.jpg','group5_4.jpg','group5_5.jpg','group5_6.jpg','group5_7.jpg','group5_8.jpg','group5_9.jpg','group5_10.jpg','group5_11.jpg','group5_12.jpg','group5_13.jpg','group5_14.jpg','group5_15.jpg'],
+      group6:['group6_1.jpg','group6_2.jpg','group6_3.jpg','group6_4.jpg','group6_5.jpg','group6_6.jpg','group6_7.jpg','group6_8.jpg','group6_9.jpg','group6_10.jpg','group6_11.jpg','group6_12.jpg','group6_13.jpg','group6_14.jpg','group6_15.jpg']
+    };
+    let currentGroup='', currentIndex=0;
+    const slideshowOverlay=document.getElementById('slideshowOverlay');
+    const slideshowImg=document.getElementById('slideshowImg');
+    const slideshowTitle=document.getElementById('slideshowTitle');
+    const closeSlideshow=document.getElementById('closeSlideshow');
+    const prevSlide=document.getElementById('prevSlide');
+    const nextSlide=document.getElementById('nextSlide');
+
+    function openSlideshow(groupId){
+      currentGroup=groupId;
+      currentIndex=0;
+      slideshowTitle.textContent=`SNAPSHOTS`;
+      slideshowImg.src=groupImages[groupId][currentIndex];
+      slideshowOverlay.classList.add('show');
+    }
+    closeSlideshow.addEventListener('click',()=>slideshowOverlay.classList.remove('show'));
+    prevSlide.addEventListener('click',()=>{ currentIndex=(currentIndex-1+groupImages[currentGroup].length)%groupImages[currentGroup].length; slideshowImg.src=groupImages[currentGroup][currentIndex]; });
+    nextSlide.addEventListener('click',()=>{ currentIndex=(currentIndex+1)%groupImages[currentGroup].length; slideshowImg.src=groupImages[currentGroup][currentIndex]; });
+    slideshowOverlay.addEventListener('click',(e)=>{ if(e.target===slideshowOverlay) slideshowOverlay.classList.remove('show'); });
+  </script>
+
+</body>
+</html>
