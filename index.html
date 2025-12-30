@@ -8,7 +8,93 @@
     /* --- Global Styles --- */
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
     html { scroll-behavior: smooth; }
-    body { background:#f9f9f9; color:#333; line-height:1.6; }
+    body { background:#0a192f; color:#333; line-height:1.6; }
+
+/* Sidebar Container */
+.nav-sidebar {
+  position: fixed;
+  top: 0; 
+  left: -350px; /* Hidden */
+  width: 350px; 
+  height: 100%;
+  background: rgba(10, 25, 47, 0.98); /* Deep Navy background */
+  backdrop-filter: blur(15px);
+  z-index: 3000;
+  padding: 5rem 2rem;
+  transition: 0.4s ease;
+  overflow-y: auto;
+  border-right: 1px solid #ffffff; /* White border line */
+}
+
+.nav-sidebar.active { left: 0; }
+
+
+
+/* Menu List Items */
+.menu-list { list-style: none; padding: 0; }
+.menu-list li { margin-bottom: 0.8rem; }
+
+/* Forces all links and triggers to White */
+.menu-list a, 
+.menu-trigger, 
+.close-btn {
+  color: #ffffff !important; 
+  text-decoration: none; 
+  font-size: 1.1rem;
+  cursor: pointer; 
+  display: block;
+  text-shadow: none !important; /* Removes neon glow */
+}
+
+/* Hover effect stays white but adds a slight underline or highlight */
+.menu-list a:hover, 
+.menu-trigger:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* Sub-menus (Hidden until clicked) */
+.sub-menu, .sub-sub-menu {
+  display: none;
+  padding-left: 1.2rem;
+  margin-top: 0.5rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.3); /* Thin white line for hierarchy */
+}
+
+/* Reveal when parent is clicked */
+.has-children.open > .sub-menu, 
+.has-children.open > .sub-sub-menu {
+  display: block;
+}
+.nav-sidebar.active { right: 0; }
+
+/* Menu Items */
+.menu-list { list-style: none; padding: 0; }
+.menu-list li { margin-bottom: 0.8rem; }
+.menu-list a, .menu-trigger {
+  color: #fff; text-decoration: none; font-size: 1.1rem;
+  cursor: pointer; display: block; transition: 0.2s;
+}
+
+/* Parent Trigger Style */
+.menu-trigger { color: #64ffda; font-weight: 600; }
+.menu-trigger:hover { color: #ffcc00; }
+
+/* Sub-menus (Hidden) */
+.sub-menu, .sub-sub-menu {
+  display: none;
+  padding-left: 1.2rem;
+  margin-top: 0.5rem;
+  border-left: 1px solid rgba(100, 255, 218, 0.3);
+}
+
+/* Reveal when parent is clicked */
+.has-children.open > .sub-menu, 
+.has-children.open > .sub-sub-menu {
+  display: block;
+}
+
+.close-btn { position: absolute; top: 20px; right: 25px; font-size: 2.5rem; color: #64ffda; cursor: pointer; }
 
     /* --- Navbar --- */
     header{
@@ -55,6 +141,9 @@
       border-radius:30px; cursor:pointer; border:none; font-size:1rem;
     }
     .scroll-down:hover{ background:#555; }
+	.narrative {
+	  scroll-margin-top: 96px;
+	}
 
     /* --- Narratives Section --- */
     .fade-in {
@@ -106,8 +195,24 @@
     .close-btn{ position:absolute; top:20px; right:24px; font-size:2rem; cursor:pointer; }
 
 .members-overlay {
-  background: rgba(0,0,0,0.9);
+  position: fixed;
+  top: 0;
+  left: -350px; /* hidden by default */
+  width: 350px;
+  height: 100%;
+  background: linear-gradient(180deg, #0a192f, #1a3b70); /* navy to blue gradient */
+  backdrop-filter: blur(10px); /* keeps it slightly glassy */
+  z-index: 3000;
+  padding: 5rem 2rem;
+  transition: 0.4s ease;
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+.members-overlay.active {
+  left: 0;
+}
+
 
 .members-list {
   text-align: left;
@@ -200,21 +305,78 @@
       <ul>
         <li><a href="#home" onclick="closeOverlayImmediate()">Home</a></li>
         <li><span class="menu-icon" id="menuBtn">☰</span></li>
+	<li><span class="menu-icon" id="membersBtn">👤</span></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Overlay Popup for Groups -->
-  <div class="overlay" id="groupOverlay" aria-hidden="true" role="dialog" aria-label="Project groups">
-    <span class="close-btn" id="closeBtn" aria-label="Close groups">×</span>
-    <h2>Project Groups</h2>
-    <a class="group-link" href="#group1" onclick="goToGroup(event,'group1')">Group 1 - Robot Arm</a>
-    <a class="group-link" href="#group2" onclick="goToGroup(event,'group2')">Group 2 - Base</a>
-    <a class="group-link" href="#group3" onclick="goToGroup(event,'group3')">Group 3 - Environmental Monitoring</a>
-    <a class="group-link" href="#group4" onclick="goToGroup(event,'group4')">Group 4 - Thermal Imaging</a>
-    <a class="group-link" href="#group5" onclick="goToGroup(event,'group5')">Group 5 - Vibration Sensor</a>
-    <a class="group-link" href="#group6" onclick="goToGroup(event,'group6')">Group 6 - Web Development</a>
-  </div>
+<div id="sideMenu" class="nav-sidebar">
+  <span class="close-btn" onclick="toggleMenu()">×</span>
+  <ul class="menu-list">
+    <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+    <li><a href="#narratives" onclick="toggleMenu()">Introduction</a></li>
+    <li><a href="#objectives" onclick="toggleMenu()">Objectives</a></li>
+    <li><a href="#Review of Related Concepts" onclick="toggleMenu()">Review of Related Concepts</a></li>
+    
+    <li class="has-children">
+      <span class="menu-trigger">System Design and Methodology ▾</span>
+      <ul class="sub-menu">
+        <li><a href="#System Overview"onclick="toggleMenu()">- System Overview</a></li>
+        <li class="has-children">
+          <span class="menu-trigger">- Hardware Design ▾</span>
+          <ul class="sub-sub-menu">
+            <li><a href="#List of Components"onclick="toggleMenu()">-- List of Components</a></li>
+            <li><a href="#Circuit Diagrams"onclick="toggleMenu()">-- Circuit Diagrams</a></li>
+          </ul>
+        </li>
+        <li><a href="#Software Design"onclick="toggleMenu()">- Software Design</a></li>
+        <li><a href="#Feedback Mechanism"onclick="toggleMenu()">- Feedback Mechanism</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#Mathematical Modeling and Analysis" onclick="toggleMenu()"onclick="toggleMenu()">Mathematical Modeling and Analysis</a></li>
+
+    <li class="has-children">
+      <span class="menu-trigger">Implementation and Testing ▾</span>
+      <ul class="sub-menu">
+        <li><a href="#Prototype Development"onclick="toggleMenu()">- Prototype Development</a></li>
+        <li><a href="#Experimental Setup and Testing"onclick="toggleMenu()">- Experimental Setup and Testing</a></li>
+        <li><a href="#Data Collection"onclick="toggleMenu()">- Data Collection</a></li>
+      </ul>
+    </li>
+
+    <li class="has-children">
+      <span class="menu-trigger">Results and Discussion ▾</span>
+      <ul class="sub-menu">
+        <li><a href="#System Performance"onclick="toggleMenu()">- System Performance</a></li>
+        <li><a href="#Theoretical vs. Experimental"onclick="toggleMenu()">- Theoretical vs. Experimental</a></li>
+        <li><a href="#Challenges"onclick="toggleMenu()">- Challenges</a></li>
+      </ul>
+    </li>
+
+    <li class="has-children">
+      <span class="menu-trigger">Conclusion and Recommendations ▾</span>
+      <ul class="sub-menu">
+        <li><a href="#Summary"onclick="toggleMenu()">- Summary</a></li>
+        <li><a href="#Limitations"onclick="toggleMenu()">- Limitations</a></li>
+        <li><a href="#Recommendations"onclick="toggleMenu()">- Recommendations</a></li>
+      </ul>
+    </li>
+    <li><a href="#References" onclick="toggleMenu()">References</a></li>
+    <li><a href="#Appendices" onclick="toggleMenu()">Appendices</a></li>
+  </ul>
+</div>
+<div id="membersSidebar" class="nav-sidebar members-overlay">
+  <span class="close-btn" onclick="toggleMembers()">×</span>
+  <ul class="menu-list">
+    <li><a href="#group1" onclick="toggleMembers()">Robot Arm</a></li>
+    <li><a href="#group2" onclick="toggleMembers()">Base</a></li>
+    <li><a href="#group3" onclick="toggleMembers()">Environmental Monitoring</a></li>
+    <li><a href="#group4" onclick="toggleMembers()">Thermal Imaging</a></li>
+    <li><a href="#group5" onclick="toggleMembers()">Vibration Sensor</a></li>
+    <li><a href="#group6" onclick="toggleMembers()">Web Development</a></li>
+  </ul>
+</div>
 
   <!-- Home -->
   <section class="home" id="home">
@@ -227,7 +389,7 @@
   <section class="narratives" id="narratives" style="padding:3rem 2rem;">
 
     <!-- Narrative intro -->
-    <div class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
+    <div id="intro" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
       <h2>I. Introduction</h2>
       <p> 
 An electrical substation serves as the heart of a power system. This is where change, inspection, and control of voltage and current take place to ensure that electric energy is delivered safely from power plants to consumers. However, despite its importance, inspection and maintenance of substations is still marked as a challenge in this field. Workers assigned for inspection and maintenance are subjected to the risks and hazards of a substation. This situation consumes more time and gives health risks to workers, which results in difficulty in maintenance and inspection.
@@ -243,7 +405,7 @@ According to Proven Robotics, robots are now widely applied in the electronics i
     </div>
 
     <!-- Narrative 1 -->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
+    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
       <h2>Purpose and Significance</h2>
       <p> 
       Project Sirius Mk. ll is an inspection assistant that can monitor the condition of equipment in a substation using different sensors. This serves as an alternative way of inspection that is safer and more efficient, rather than relying on manual inspection.
@@ -252,7 +414,7 @@ Project Sirius Mk. ll is not just a simple prototype but a stepping stone for sa
     </div>
 
     <!-- Narrative 1.1 -->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
+    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
       <h2>Relevance</h2>
       <p> 
 Project Sirius Mk. II is not just a practical solution to substation inspections but is an application of theoretical concepts relative to electrical engineering. This project has a huge relevance to the principles of feedback and control systems, which serve as the foundation of modern robots and automation. 
@@ -264,7 +426,7 @@ The feedback and control systems provide an academic project context for Project
     </div>
 
     <!-- Narrative 2.0 -->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
+    <div id="objectives" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
       <h2>II. Objectives</h2>
 	 <h2>General Objectives</h2>
   <p>
@@ -291,7 +453,7 @@ To achieve the general objective, the project pursues the following specific obj
     </p>
     </div>
     <!-- Narrative 3.0 -->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
+    <div id="Review of Related Concepts" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
       <h2>III. Review of Related Concepts</h2>
 		<h2>Brief Overview of Feedback and Control Systems Applied in Robotics</h2>
     <p>
@@ -309,7 +471,7 @@ This field is developing quickly with experimental applications of brain-inspire
     </div>
 
     <!-- Narrative 3.1-->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
+    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
 	<h2>Control Strategies Considered</h2>
     <p>
 The Project Sirius MK. II's core movement relies on a modified toy car equipped with ultrasonic sensors and LiDAR. The movements of the vehicle in the substation yard are mostly performed in a fast and efficient way, where the possibility of collision with poles, panels, and other equipment is kept at an absolute minimum. The speed and directional control of these movements employ a PID method with stable performance for instant applied changes in the environment; these alterations approximate smooth trajectories by taking into consideration proportional, integral, and derivative aspects of position and speed correction. This technique is commonly used in robotics because it is simple and efficient.
@@ -327,7 +489,7 @@ The control strategies of Project Sirius MK II are configured according to the n
     </div>
 
     <!-- Narrative 3.2-->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
+    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
 		<h2>References to Theoretical Models</h2>
     <p>
 The interior of the robot consists of several significant subsystems like obstacle avoidance sensors, vibration monitoring modules, a thermal imaging unit, a camera subsystem, environmental monitoring sensors, and control boards for the robotic arm. Their arrangement follows the principles of 3D interactive scene construction described by Fan and Liang (2024), where virtual reality and deep learning are used to model spatial layouts. In Project Sirius MK. II, this principle was adapted to ensure that sensors do not interfere with one another and that electronics are positioned to optimize data flow.
@@ -343,16 +505,169 @@ The interior subsystems were structurally organized through the application of V
     </p>
     </div>
 
-  <!-- Narrative 4 -->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
-      <h2>IV. System Design and Methodology"</h2>
+  <!-- Narrative 4.0 -->
+    <div id="System Design and Methodology" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>IV. System Design and Methodology</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 4.1 -->
+    <div id="System Overview" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>System Overview</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 4.2 -->
+    <div class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Hardware Design</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 4.2.1 -->
+    <div id="List of Components" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>List of Components</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 4.2.2 -->
+    <div id="Circuit Diagrams" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Circuit Diagrams</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 4.3 -->
+    <div id="Software Design" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Software Design</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 4.4 -->
+    <div id="Feedback Mechanism" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Feedback Mechanism</h2>
     <p>
 
     </p>
     </div>
 
-    <!-- Narrative 4 -->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
+
+    <!-- Narrative 5.0 -->
+    <div id="Mathematical Modeling and Analysis" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>V. Mathematical Modeling and Analysis</h2>
+		<h2>Brief Overview of Feedback and Control Systems Applied in Robotics</h2>
+    <p>
+
+    </p>
+    </div>
+
+  <!-- Narrative 6.0 -->
+    <div id="Implementation and Testing" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>VI. Implementation and Testing</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 6.1 -->
+    <div id="Prototype Development" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Prototype Development</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 6.2 -->
+    <div id="Experimental Setup and Testing" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Experimental Setup and Testing</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 6.3 -->
+    <div id="Data Collection" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Data Collection</h2>
+    <p>
+
+    </p>
+    </div>
+
+  <!-- Narrative 7.0 -->
+    <div id="Results and Discussion" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>VII. Results and Discussion</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 7.1 -->
+    <div id="System Performance" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>System Performance</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 7.2 -->
+    <div id="Theoretical vs. Experimental" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Theoretical vs. Experimental</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 7.3 -->
+    <div id="Challenges" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Challenges</h2>
+    <p>
+
+    </p>
+    </div>
+
+  <!-- Narrative 8.0 -->
+    <div id="Conclusions and Recommendations" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>VIII. Conclusions and Recommendations</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 8.1 -->
+    <div id="Summary" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Summary</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 8.2 -->
+    <div id="Limitations" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Limitations</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 8.3 -->
+    <div id="Recommendations" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>Recommendations</h2>
+    <p>
+
+    </p>
+    </div>
+
+  <!-- Narrative 9.0 -->
+    <div id="References" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>IX. References</h2>
+    <p>
+
+    </p>
+    </div>
+  <!-- Narrative 10.0 -->
+    <div id="Appendices" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+      <h2>X. Appendices</h2>
+    <p>
+
+    </p>
+    </div>
+    <!-- Narrative end -->
+    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
       <h2>Message from the team: "BSEE - 3A"</h2>
     <p>
       Project SIRIUS MK. II represents more than just a technical achievement—it embodies teamwork, innovation,
@@ -482,18 +797,23 @@ The interior subsystems were structurally organized through the application of V
   </div>
 
   <script>
-    // --- Overlay menu ---
-    const overlay = document.getElementById('groupOverlay');
-    const menuBtn = document.getElementById('menuBtn');
-    const closeBtn = document.getElementById('closeBtn');
-    menuBtn.addEventListener('click', () => { overlay.classList.add('show'); overlay.setAttribute('aria-hidden','false'); });
-    closeBtn.addEventListener('click', () => { overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); });
-    window.addEventListener('keydown', (e) => { if(e.key==='Escape' && overlay.classList.contains('show')) { overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); } });
-    overlay.addEventListener('click', (e)=>{ if(e.target===overlay){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); } });
-    function closeOverlayImmediate(){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); }
-    function goToGroup(event,targetId){ event.preventDefault(); overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); setTimeout(()=>{ const el=document.getElementById(targetId); if(el){ el.scrollIntoView({behavior:'smooth', block:'start'});} },120); }
+// 1. Open and Close the main sidebar
+function toggleMenu() {
+  document.getElementById("sideMenu").classList.toggle("active");
+}
 
-    // --- Fade-in Animation ---
+// 2. Attach the click event to your 3-line icon
+document.getElementById("menuBtn").onclick = toggleMenu;
+
+// 3. Handle Nested Clicks (The - and -- items)
+document.querySelectorAll('.menu-trigger').forEach(trigger => {
+  trigger.addEventListener('click', function(e) {
+    // Prevent the link from jumping while we toggle the menu
+    e.preventDefault(); 
+    const parent = this.parentElement;
+    parent.classList.toggle('open');
+  });
+});    // --- Fade-in Animation ---
     (function(){
       const items=document.querySelectorAll('.fade-in');
       if('IntersectionObserver' in window){
@@ -579,5 +899,20 @@ membersOverlay.addEventListener("click", e => {
     slideshowOverlay.addEventListener('click',(e)=>{ if(e.target===slideshowOverlay) slideshowOverlay.classList.remove('show'); });
   </script>
 
+<script>
+  const membersSidebar = document.getElementById('membersSidebar');
+  const membersBtn = document.getElementById('membersBtn');
+
+  function toggleMembers() {
+    membersSidebar.classList.toggle('active');
+  }
+
+  membersBtn.addEventListener('click', toggleMembers);
+</script>
+
+
+
+
 </body>
 </html>
+
