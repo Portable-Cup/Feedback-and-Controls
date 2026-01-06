@@ -13,12 +13,12 @@
   gap: 10px;
   margin-bottom: 25px;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
 }
 
 .sidebar-logo img {
-  height: 100px;
+  height: 60px;
   width: auto;
 }
 
@@ -33,7 +33,7 @@
   position: fixed;
   top: 0; 
   right: -400px; /* Hidden */
-  width: 350px; 
+  width: min(85vw, 350px); 
   height: 100%;
   background: rgba(10, 25, 47, 0.98); /* Deep Navy background */
   backdrop-filter: blur(15px);
@@ -120,7 +120,7 @@
       display:flex; align-items:center; justify-content:space-between;
       z-index:1000;
     }
-    header h1 { font-size:1.2rem; }
+    header h1 { font-size:1.1rem; }
     nav ul { list-style:none; display:flex; gap:1rem; align-items:center; margin:0; padding:0; }
     nav ul li a { color:#fff; text-decoration:none; font-weight:500; }
     nav ul li a:hover { color:#ffcc00; }
@@ -214,7 +214,7 @@
   position: fixed;
   top: 0;
   left: -350px; /* hidden by default */
-  width: 350px;
+  width: min(85vw, 350px);
   height: 100%;
   background: linear-gradient(180deg, #0a192f, #1a3b70); /* navy to blue gradient */
   backdrop-filter: blur(10px); /* keeps it slightly glassy */
