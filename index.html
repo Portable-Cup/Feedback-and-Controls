@@ -5,6 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PROJECT SIRIUS MK. II</title>
   <style>
+.site-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-title img {
+  height: 36px;
+  width: auto;
+}
+
+/* Sidebar logo */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.sidebar-logo img {
+  height: 40px;
+  width: auto;
+}
+
+/* Group section logo */
+.group-logo {
+  width: 60px;
+  margin-bottom: 10px;
+}
+
     /* --- Global Styles --- */
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
     html { scroll-behavior: smooth; }
@@ -14,7 +47,7 @@
 .nav-sidebar {
   position: fixed;
   top: 0; 
-  left: -350px; /* Hidden */
+  right: -400px; /* Hidden */
   width: 350px; 
   height: 100%;
   background: rgba(10, 25, 47, 0.98); /* Deep Navy background */
@@ -23,12 +56,10 @@
   padding: 5rem 2rem;
   transition: 0.4s ease;
   overflow-y: auto;
-  border-right: 1px solid #ffffff; /* White border line */
+  border-left: 1px solid #ffffff; /* White border line */
 }
 
-.nav-sidebar.active { left: 0; }
-
-
+.nav-sidebar.active { right: 0; }
 
 /* Menu List Items */
 .menu-list { list-style: none; padding: 0; }
@@ -300,7 +331,10 @@
 
   <!-- Navbar -->
   <header>
-    <h1>Feedback and Controls System</h1>
+<h1 class="site-title">
+  <img src="bsee3alogo.jpg" alt="Logo">
+  Feedback and Controls System
+</h1>
     <nav>
       <ul>
         <li><a href="#home" onclick="closeOverlayImmediate()">Home</a></li>
@@ -311,6 +345,11 @@
   </header>
 
 <div id="sideMenu" class="nav-sidebar">
+<div class="sidebar-logo">
+  <img src="bsee3alogo.jpg" alt="Logo">
+BSEE 3A
+</div>
+
   <span class="close-btn" onclick="toggleMenu()">×</span>
   <ul class="menu-list">
     <li><a href="#home" onclick="toggleMenu()">Home</a></li>
@@ -389,7 +428,7 @@
   <section class="narratives" id="narratives" style="padding:3rem 2rem;">
 
     <!-- Narrative intro -->
-    <div id="intro" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="intro" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>I. Introduction</h2>
       <p> 
 An electrical substation serves as the heart of a power system. This is where change, inspection, and control of voltage and current take place to ensure that electric energy is delivered safely from power plants to consumers. However, despite its importance, inspection and maintenance of substations is still marked as a challenge in this field. Workers assigned for inspection and maintenance are subjected to the risks and hazards of a substation. This situation consumes more time and gives health risks to workers, which results in difficulty in maintenance and inspection.
@@ -405,7 +444,7 @@ According to Proven Robotics, robots are now widely applied in the electronics i
     </div>
 
     <!-- Narrative 1 -->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Purpose and Significance</h2>
       <p> 
       Project Sirius Mk. ll is an inspection assistant that can monitor the condition of equipment in a substation using different sensors. This serves as an alternative way of inspection that is safer and more efficient, rather than relying on manual inspection.
@@ -414,7 +453,7 @@ Project Sirius Mk. ll is not just a simple prototype but a stepping stone for sa
     </div>
 
     <!-- Narrative 1.1 -->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Relevance</h2>
       <p> 
 Project Sirius Mk. II is not just a practical solution to substation inspections but is an application of theoretical concepts relative to electrical engineering. This project has a huge relevance to the principles of feedback and control systems, which serve as the foundation of modern robots and automation. 
@@ -426,7 +465,7 @@ The feedback and control systems provide an academic project context for Project
     </div>
 
     <!-- Narrative 2.0 -->
-    <div id="objectives" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="objectives" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>II. Objectives</h2>
 	 <h2>General Objectives</h2>
   <p>
@@ -453,7 +492,7 @@ To achieve the general objective, the project pursues the following specific obj
     </p>
     </div>
     <!-- Narrative 3.0 -->
-    <div id="Review of Related Concepts" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Review of Related Concepts" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>III. Review of Related Concepts</h2>
 		<h2>Brief Overview of Feedback and Control Systems Applied in Robotics</h2>
     <p>
@@ -471,7 +510,7 @@ This field is developing quickly with experimental applications of brain-inspire
     </div>
 
     <!-- Narrative 3.1-->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
 	<h2>Control Strategies Considered</h2>
     <p>
 The Project Sirius MK. II's core movement relies on a modified toy car equipped with ultrasonic sensors and LiDAR. The movements of the vehicle in the substation yard are mostly performed in a fast and efficient way, where the possibility of collision with poles, panels, and other equipment is kept at an absolute minimum. The speed and directional control of these movements employ a PID method with stable performance for instant applied changes in the environment; these alterations approximate smooth trajectories by taking into consideration proportional, integral, and derivative aspects of position and speed correction. This technique is commonly used in robotics because it is simple and efficient.
@@ -489,7 +528,7 @@ The control strategies of Project Sirius MK II are configured according to the n
     </div>
 
     <!-- Narrative 3.2-->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
 		<h2>References to Theoretical Models</h2>
     <p>
 The interior of the robot consists of several significant subsystems like obstacle avoidance sensors, vibration monitoring modules, a thermal imaging unit, a camera subsystem, environmental monitoring sensors, and control boards for the robotic arm. Their arrangement follows the principles of 3D interactive scene construction described by Fan and Liang (2024), where virtual reality and deep learning are used to model spatial layouts. In Project Sirius MK. II, this principle was adapted to ensure that sensors do not interfere with one another and that electronics are positioned to optimize data flow.
@@ -506,58 +545,83 @@ The interior subsystems were structurally organized through the application of V
     </div>
 
   <!-- Narrative 4.0 -->
-    <div id="System Design and Methodology" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="System Design and Methodology" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>IV. System Design and Methodology</h2>
     <p>
 
     </p>
     </div>
   <!-- Narrative 4.1 -->
-    <div id="System Overview" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="System Overview" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>System Overview</h2>
-    <p>
-
+    <p>	Project Sirius Mk. II aka Substation Intervention and Inspection Utility System is a mobile robotic device designed for remote inspection, monitoring, and intervention in electrical substations. The project was created to allow personnel to safely operate key apparatuses on hazardous environments such as substations. The device is built around a mobile platform that can move within such areas while carrying various sensors and tools for operation purposes. It is also equipped with visual and thermal cameras that allow operators to remotely observe equipment in real time and detect potential issues such as overheating components. Additionally, environmental sensors are used to monitor parameters such as temperature and humidity, in order to identify abnormal operating conditions.
+ Project Sirius Mk. II incorporates a robotic arm that enables remote interaction with electric apparatuses, allowing indirect intervention whilst providing safety towards the personnel. All system functions are managed through an integrated control system that handles movement, sensor data collection, and communication. A remote interface is provided to allow operators to view live feedback from a safe location while manually maneuvering the device. The system was designed with an emphasis on practicality, safety, and affordability, making use of readily available and repurposed components. Initially developed as an academic prototype, Project Sirius Mk. II demonstrates the application of feedback and control principles while providing a foundation for future improvements and potential real-world use in substation inspection and maintenance.
     </p>
+      <div class="narrative-images">
+        <img src="overalldiagram.png" alt="Initial design sketch">
+      </div>
     </div>
   <!-- Narrative 4.2 -->
-    <div class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Hardware Design</h2>
-    <p>
-
+    <p>Inputs:
+Sensor data from temperature, humidity, and vibration sensors
+Visual input from the camera system
+Thermal data from the thermal camera
+User control commands from the remote interface
+Process:
+The system processes sensor data and user commands within the control unit. The data is analyzed to determine the required motion or action of the robot and its components.
+Controller:
+A microcontroller serves as the main controller, executing the control algorithms and managing communication between sensors, actuators, and the remote interface.
+Outputs:
+Motor signals for robot movement
+Actuator control signals for the robotic arm
+Visual and thermal feedback displayed on the user interface
     </p>
     </div>
   <!-- Narrative 4.2.1 -->
-    <div id="List of Components" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="List of Components" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>List of Components</h2>
-    <p>
-
+    <p>Robot platform/components (motors, sensors, actuators, microcontrollers)
+- Remote-Controlled Toy Car
+- Thermal Sensor
+- Camera
+- Vibration Sensor
+- Environmental Imaging 
+- Robot Arm
     </p>
     </div>
   <!-- Narrative 4.2.2 -->
-    <div id="Circuit Diagrams" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Circuit Diagrams" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Circuit Diagrams</h2>
     <p>
 
     </p>
+      <div class="narrative-images">
+        <img src="diagram1.jpg" alt="environmental monitoring">
+        <img src="diagram2.jpg" alt="robot arm">
+        <img src="diagram3.jpg" alt="vibration sensor">
+      </div>
     </div>
   <!-- Narrative 4.3 -->
-    <div id="Software Design" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Software Design" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Software Design</h2>
-    <p>
-
+    <p>The control algorithm implemented in Project Sirius Mk. II is based on a rule‑based closed‑loop control approach. The system continuously receives input from various sensors and user commands through the control interface. These inputs are processed by the microcontroller to determine the appropriate action of the system.
+Based on predefined conditions, the controller generates control signals for the motors, robotic arm, and other actuators. For example, when an obstacle is detected by the ultrasonic sensor, the controller commands the motors to stop or change direction. Similarly, sensor data such as temperature, vibration, and environmental readings are processed to trigger monitoring alerts or system responses. This algorithm ensures stable and responsive system operation.
     </p>
     </div>
   <!-- Narrative 4.4 -->
-    <div id="Feedback Mechanism" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Feedback Mechanism" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Feedback Mechanism</h2>
     <p>
-
+The feedback mechanism of the system is provided by the integrated sensors and monitoring devices. These sensors continuously send real‑time data back to the controller, allowing the system to observe its current operating condition.
+Feedback is obtained from the ultrasonic sensor for obstacle detection, environmental sensors for temperature and humidity monitoring, vibration sensors for equipment condition monitoring, and camera systems for visual confirmation. This feedback allows the controller to verify whether the system’s actions are effective and to make adjustments when necessary.
     </p>
     </div>
 
 
     <!-- Narrative 5.0 -->
-    <div id="Mathematical Modeling and Analysis" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Mathematical Modeling and Analysis" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>V. Mathematical Modeling and Analysis</h2>
 		<h2>Brief Overview of Feedback and Control Systems Applied in Robotics</h2>
     <p>
@@ -566,28 +630,33 @@ The interior subsystems were structurally organized through the application of V
     </div>
 
   <!-- Narrative 6.0 -->
-    <div id="Implementation and Testing" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Implementation and Testing" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>VI. Implementation and Testing</h2>
     <p>
-
+The development of the Project Sirius Mk. II prototype followed a systematic engineering design process, beginning with the conceptualization of a modular architecture. This approach was essential to ensure that each functional requirement are navigation, monitoring, and intervention. This could be developed and tested independently before being integrated into a single supervisory system. Initial structural planning was guided by the principles of spatial layout optimization, ensuring that the placement of high-sensitivity electronics and power-heavy actuators did not result in electromagnetic interference or signal degradation across the communication bus.
+The physical construction began with the selection and modification of a micro-tracked chassis, repurposed from a robust toy car. This base was chosen for its inherent terrain adaptability, allowing the robot to traverse the varied and often uneven surfaces found in substation yards. Structural reinforcement was applied using structural integrity models to ensure the chassis could support the combined weight of the sensor suite and the 6-DOF robotic arm without compromising the center of gravity. This mechanical foundation served as the mobile platform for all subsequent electronic installations.
     </p>
     </div>
   <!-- Narrative 6.1 -->
-    <div id="Prototype Development" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Prototype Development" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Prototype Development</h2>
     <p>
-
+Hardware integration proceeded with the installation of the navigation and obstacle avoidance suite. The researchers implemented a sensor fusion strategy, mounting both ultrasonic sensors and LiDAR modules to the front and sides of the chassis. This phase involved precise calibration of the sensor FOV (Field of View) to eliminate "blind spots" during autonomous movement. Wiring was structured according to the I/O mapping identified in the preliminary design, utilizing dedicated terminal blocks to maintain the industrial wiring standards required by the BSEE curriculum.
+Following navigation, the condition-monitoring subsystem was integrated. This involved the placement of specialized sensors for SF6 gas detection, thermal imaging, and vibration monitoring. To ensure accurate data acquisition, signal conditioning was applied to the analog inputs, converting raw voltages into digital values through the microcontroller’s ADC. Adaptive thresholds were programmed into the controller during this stage to account for ambient noise and varying environmental conditions, ensuring that the robot could distinguish between normal operating heat and a critical "hotspot" in a transformer.
+The assembly of the six-degree-of-freedom (6-DOF) robotic arm represented the most complex phase of the hardware development. Each joint was equipped with high-torque servo motors and individual PID loops to ensure smooth, high-precision movement. The arm was mounted in a position that allowed for maximum reach while maintaining the stability of the mobile base. Bench testing was conducted to verify that the arm could effectively manipulate circuit breaker panels and execute the "locking and unlocking" motions required for substation intervention.
+In the software development phase, the researchers encoded the supervisory control logic that unifies all subsystems. Using a rule-based closed-loop approach, the microcontroller was programmed to prioritize safety-critical inputs. For instance, the logic was designed so that a detection of SF6 gas or a critical obstacle would override standard movement commands. System-wide testing and refinement were then conducted to assess the interaction between the software and hardware components. This involved iterative PID tuning to reduce "overshoot" in motor movements and the application of software filters to clean up noisy sensor data. During this stage, the researchers utilized real-time data from the remote interface to verify that the visual and thermal feeds were synchronized with the robot's physical position. Any errors in error dynamics or misalignment of the robotic arm were corrected through the feedback control mechanism.
+The final phase of development resulted in the completion of the Project Sirius Mk. II prototype, a fully functional Substation Intervention and Inspection Utility System. The completed prototype represents a transition from abstract theoretical concepts such as Laplace transforms and transfer functions to a tangible engineering solution. By integrating modular hardware with robust control strategies, the researchers produced a device capable of remote condition monitoring and safe intervention, effectively meeting the project’s general objectives and preparing the system for final experimental validation.
     </p>
     </div>
   <!-- Narrative 6.2 -->
-    <div id="Experimental Setup and Testing" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Experimental Setup and Testing" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Experimental Setup and Testing</h2>
     <p>
 
     </p>
     </div>
   <!-- Narrative 6.3 -->
-    <div id="Data Collection" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Data Collection" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Data Collection</h2>
     <p>
 
@@ -595,28 +664,28 @@ The interior subsystems were structurally organized through the application of V
     </div>
 
   <!-- Narrative 7.0 -->
-    <div id="Results and Discussion" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Results and Discussion" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>VII. Results and Discussion</h2>
     <p>
 
     </p>
     </div>
   <!-- Narrative 7.1 -->
-    <div id="System Performance" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="System Performance" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>System Performance</h2>
     <p>
 
     </p>
     </div>
   <!-- Narrative 7.2 -->
-    <div id="Theoretical vs. Experimental" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Theoretical vs. Experimental" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Theoretical vs. Experimental</h2>
     <p>
 
     </p>
     </div>
   <!-- Narrative 7.3 -->
-    <div id="Challenges" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Challenges" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Challenges</h2>
     <p>
 
@@ -624,28 +693,28 @@ The interior subsystems were structurally organized through the application of V
     </div>
 
   <!-- Narrative 8.0 -->
-    <div id="Conclusions and Recommendations" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Conclusions and Recommendations" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>VIII. Conclusions and Recommendations</h2>
     <p>
 
     </p>
     </div>
   <!-- Narrative 8.1 -->
-    <div id="Summary" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Summary" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Summary</h2>
     <p>
 
     </p>
     </div>
   <!-- Narrative 8.2 -->
-    <div id="Limitations" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Limitations" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Limitations</h2>
     <p>
 
     </p>
     </div>
   <!-- Narrative 8.3 -->
-    <div id="Recommendations" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Recommendations" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Recommendations</h2>
     <p>
 
@@ -653,21 +722,47 @@ The interior subsystems were structurally organized through the application of V
     </div>
 
   <!-- Narrative 9.0 -->
-    <div id="References" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="References" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>IX. References</h2>
     <p>
-
+Alepuz, A. M., Papageorgiou, D., & Tolu, S. (2024). Brain-inspired biomimetic robot control: a review. Frontiers in Neurorobotics, 18, 1395617. https://doi.org/10.3389/fnbot.2024.1395617
+Alizadeh, M., & Zhu, Z. H. (2024). A comprehensive survey of space robotic manipulators for on-orbit servicing. Frontiers in Robotics and AI, 11, 1470950. https://doi.org/10.3389/frobt.2024.1470950
+AZoRobotics. (2025, November 10). How do Robots Use Feedback? https://www.azorobotics.com/Article.aspx?ArticleID=161
+Barravecchia, F., Mastrogiacomo, L., & Franceschini, F. (2023). A general cost model to assess the implementation of collaborative robots in assembly processes. The International Journal of Advanced Manufacturing Technology, 125(11–12), 5247–5266. https://doi.org/10.1007/s00170-023-10942-z
+Client challenge. (n.d.). Retrieved December 22, 2025, from https://www.slideshare.net/slideshow/robotics-and-its-applications-in-electrical-engineering/275275997
+Della Santina, C., Katzschmann, R. K., Bicchi, A., & Rus, D. (2020). Model-based dynamic feedback control of a planar soft robot: trajectory tracking and interaction with the environment. The International Journal of Robotics Research, 39(4), 490–513. https://doi.org/10.1177/0278364919897292
+Du, Z., Zhang, G., Zhang, Y., Chen, J., & Zhang, X. (2024). Path planning of substation inspection robot based on high-precision positioning and navigation technology. International Journal of Low-Carbon Technologies, 19, 1754–1765. https://doi.org/10.1093/ijlct/ctae125
+Encyclopaedia Britannica. (2025, December 5). Automation – Feedback, control systems, robotics. Britannica. https://www.britannica.com/technology/automation/Feedback-controls
+Fan, Y., & Liang, L. (2024). A 3D interactive scene construction method for interior design based on virtual reality. Artificial Life and Robotics, 30(1), 173–183. https://doi.org/10.1007/s10015-024-00985-0
+Hentout, A., Maoudj, A., & Aouache, M. (2022). A review of the literature on fuzzy-logic approaches for collision-free path planning of manipulator robots. Artificial Intelligence Review, 56(4), 3369–3444. https://doi.org/10.1007/s10462-022-10257-7
+Introduction to State-Space Control. (2025, June 21). FIRST Robotics Competition Documentation. https://docs.wpilib.org/en/stable/docs/software/advanced-controls/state-space/state-space-intro.html
+Jin, M., Tang, Y., & Wang, Z. (2024). Comprehensive analysis of inspection robot technology and application in Substation. In Advances in intelligent systems research/Advances in Intelligent Systems Research (pp. 136–147). https://doi.org/10.2991/978-94-6463-370-2_16
+Kelly. (2025). Robotics applied to substations, current and future trends. TJ|H2b. https://tjh2b.com/white-papers/robotics-applied-to-substations-current-and-future-trends
+Kuo, P., Syu, M., Yin, S., Liu, H., Zeng, C., Lin, W., & Yau, H. (2024). Intelligent optimization algorithms for control error compensation and task scheduling for a robotic arm. International Journal of Intelligent Robotics and Applications, 8(2), 334–356. https://doi.org/10.1007/s41315-024-00328-z
+Lee, S. (n.d.). Feedback control: the backbone of robotics. https://www.numberanalytics.com/blog/feedback-control-in-robotics-principles-and-applications
+Ortigosa-Martínez, R., Martínez-Frutos, J., Mora-Corral, C., Pedregal, P., & Periago, F. (2023). Mathematical modeling, analysis and control in soft robotics: a survey. SeMA Journal, 81(1), 147–164. https://doi.org/10.1007/s40324-023-00334-4
+Parametric curve-based State-Space Representation for Shape Control of Soft-Continuum Manipulators. (2025, April 22). IEEE Conference Publication | IEEE Xplore. https://ieeexplore.ieee.org/document/11020909
+Peng, Y., Yang, L., Sun, Y., & Chen, X. (2025). Novel claw-type continuum robots: design, modeling, and control. Frontiers of Mechanical Engineering, 20(3). https://doi.org/10.1007/s11465-025-0832-8
+Pham, P., & Kuo, Y. (2025). Online reinforcement learning based real-time robust adaptive control design for robot manipulators. International Journal of Control Automation and Systems, 23(10), 3048–3059. https://doi.org/10.1007/s12555-024-0399-x
+Rakhmatillaev, J., Bucinskas, V., & Kabulov, N. (2025). An integrative review of control strategies in robotics. Robotic Systems and Applications. https://doi.org/10.21595/rsa.2025.25014
+Rebhi, L., Khalfallah, S., Hamel, A., & Essaidi, A. B. (2025). Design optimization of a four-wheeled robot chassis frame based on artificial neural network. Proceedings of the Institution of Mechanical Engineers Part C Journal of Mechanical Engineering Science, 239(12), 4756–4773. https://doi.org/10.1177/09544062251316755
+Robotics, P. (2025, February 3). 25 Applications of Robots in Electronics Industry - PROVEN Robotics. PROVEN Robotics. https://provenrobotics.ai/robots-in-electronics-industry/
+Santiago, R. (2024a, October 20). Feedback Control Systems: theory and applications. Discover Engineering. https://www.discoverengineering.org/feedback-control-systems-theory-and-applications/
+Su, C., & Huang, H. (2024). Enhancing terrain adaptability of micro tracked chassis: a structural design and performance evaluation. Mechanika, 30(6), 544–559. https://doi.org/10.5755/j02.mech.36883
+Tang, B., Huang, X., Ma, Y., Yu, H., Tang, L., Lin, Z., Zhu, D., & Qin, X. (2022). Multi-source fusion of substation intelligent inspection robot based on knowledge graph: A overview and roadmap. Frontiers in Energy Research, 10. https://doi.org/10.3389/fenrg.2022.993758
+Tuning of a Robotic Arm using PID Controller for Robotics and Automation Industry. (2024, June 20). IEEE Conference Publication | IEEE Xplore. https://ieeexplore.ieee.org/document/10668952
+Wang, Z. (2025). Research on force feedback technology for industrial robot. Applied and Computational Engineering, 126(1), 125–130. https://doi.org/10.54254/2755-2721/2025.20105
     </p>
     </div>
   <!-- Narrative 10.0 -->
-    <div id="Appendices" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div id="Appendices" class="fade-in narrative" style="background: #fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>X. Appendices</h2>
     <p>
 
     </p>
     </div>
     <!-- Narrative end -->
-    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: left;">
+    <div class="fade-in narrative" style="background:#fff; line-height: 2.0; padding:1.25rem; border-radius:10px; margin-bottom:1.5rem; text-align: justify;">
       <h2>Message from the team: "BSEE - 3A"</h2>
     <p>
       Project SIRIUS MK. II represents more than just a technical achievement—it embodies teamwork, innovation,
@@ -704,74 +799,36 @@ The interior subsystems were structurally organized through the application of V
   <!-- Group Sections -->
   <section class="group-section" id="group1">
     <h2>Group 1 - Robot Arm</h2>
-    <p>Purpose / Function:
-	Designed to demonstrate mechanical movement using servo motors; intended for controlled motion once electronics and programming are integrated.
-
-	Current Known Features:
-	Fully assembled mechanical structure with bolts, screws, servo motors, and servo brackets.
-    </p>
 	<button class="group-gallery-btn" onclick="openSlideshow('group1')">📷 Gallery</button>
 	<button class="group-members-btn" onclick="openMembers('group1')">👥 Members</button>
   </section>
 
   <section class="group-section" id="group2">
     <h2>Group 2 - Base</h2>
-    <p>Purpose / Function:
-	Provides foundation for the robot arm system; part of the exterior and base sketch created between Oct 16–22.
-
-	Current Known Features:
-	Base design completed during early sketching phase.
-    </p>
 	<button class="group-gallery-btn" onclick="openSlideshow('group2')">📷 Gallery</button>
 	<button class="group-members-btn" onclick="openMembers('group2')">👥 Members</button>
   </section>
 
   <section class="group-section" id="group3">
     <h2>Group 3 - Environmental Monitoring</h2>
-    <p>Purpose / Function:
-	To monitor environmental parameters such as temperature and humidity.
-	Current Progress:
-	The AHT20 sensor has arrived as a replacement for previous faulty temperature sensors. The component has been tested and is fully functional.
-	A PCB layout for the environmental monitoring module has been created, and the team is preparing to print and etch the board for integration into the system.
-	This will provide accurate and reliable environmental data for monitoring purposes within Project Sirius Mk. II.
-   </p>
 	<button class="group-gallery-btn" onclick="openSlideshow('group3')">📷 Gallery</button>
 	<button class="group-members-btn" onclick="openMembers('group3')">👥 Members</button>
   </section>
 
   <section class="group-section" id="group4">
     <h2>Group 4 - Thermal Imaging</h2>
-    <p>Purpose / Function:
-	To capture thermal imagery of the environment using a drone-based system.
-	Current Known Features / Progress:
-	The drone has been calibrated for flight, including connecting the remote control to a mobile device for live footage mirroring and adjusting manual controls for precise operation. 
-	Test flights have been conducted to determine the maximum control distance.
-    </p>
 	<button class="group-gallery-btn" onclick="openSlideshow('group4')">📷 Gallery</button>
 	<button class="group-members-btn" onclick="openMembers('group4')">👥 Members</button>
   </section>
 
   <section class="group-section" id="group5">
     <h2>Group 5 - Vibration Sensor</h2>
-    <p>Purpose / Function:
-	Detects vibration as part of the monitoring system.
-	Current Known Features:
-	PCB layout completed; all electronic components tested and working as of Nov 5.
-    </p>
 	<button class="group-gallery-btn" onclick="openSlideshow('group5')">📷 Gallery</button>
 	<button class="group-members-btn" onclick="openMembers('group5')">👥 Members</button>
   </section>
 
   <section class="group-section" id="group6">
     <h2>Group 6 - Web Development</h2>
-    <p>Purpose / Function:
-	Acts as a visual and interactive platform for the project.
-	Current Features:
-	Clean, responsive layout
-	Home button + menu with six group links 
-	Overlays for members and galleries are integrated, with smooth UI interactions.
-	Scroll-triggered fade-in animations for narratives
-    </p>
 	<button class="group-gallery-btn" onclick="openSlideshow('group6')">📷 Gallery</button>
 	<button class="group-members-btn" onclick="openMembers('group6')">👥 Members</button>
   </section>
@@ -871,12 +928,12 @@ membersOverlay.addEventListener("click", e => {
 
     // --- Slideshow ---
     const groupImages={
-      group1:['group1_1.jpg','group1_2.jpg','group1_3.jpg','group1_4.jpg','group1_5.jpg','group1_6.jpg','group1_7.jpg','group1_8.jpg','group1_9.jpg','group1_10.jpg','group1_11.jpg','group1_12.jpg','group1_13.jpg','group1_14.jpg','group1_15.jpg'],
-      group2:['group2_1.jpg','group2_2.jpg','group2_3.jpg','group2_4.jpg','group2_5.jpg','group2_6.jpg','group2_7.jpg','group2_8.jpg','group2_9.jpg','group2_10.jpg','group2_11.jpg','group2_12.jpg','group2_13.jpg','group2_14.jpg','group2_15.jpg'],
-      group3:['group3_1.jpg','group3_2.jpg','group3_3.jpg','group3_4.jpg','group3_5.jpg','group3_6.jpg','group3_7.jpg','group3_8.jpg','group3_9.jpg','group3_10.jpg','group3_11.jpg','group3_12.jpg','group3_13.jpg','group3_14.jpg','group3_15.jpg'],
-      group4:['group4_1.jpg','group4_2.jpg','group4_3.jpg','group4_4.jpg','group4_5.jpg','group4_6.jpg','group4_7.jpg','group4_8.jpg','group4_9.jpg','group4_10.jpg','group4_11.jpg','group4_12.jpg','group4_13.jpg','group4_14.jpg','group4_15.jpg'],
-      group5:['group5_1.jpg','group5_2.jpg','group5_3.jpg','group5_4.jpg','group5_5.jpg','group5_6.jpg','group5_7.jpg','group5_8.jpg','group5_9.jpg','group5_10.jpg','group5_11.jpg','group5_12.jpg','group5_13.jpg','group5_14.jpg','group5_15.jpg'],
-      group6:['group6_1.jpg','group6_2.jpg','group6_3.jpg','group6_4.jpg','group6_5.jpg','group6_6.jpg','group6_7.jpg','group6_8.jpg','group6_9.jpg','group6_10.jpg','group6_11.jpg','group6_12.jpg','group6_13.jpg','group6_14.jpg','group6_15.jpg']
+      group1:['1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','9.jpg'],
+      group2:['10.jpg','11.jpg','12.jpg','13.jpg','14.jpg','15.jpg','16.jpg','17.jpg','18.jpg','19.jpg','20.jpg','57.jpg','58.jpg'],
+      group3:['21.jpg','22.jpg','23.jpg','24.jpg','25.jpg','26.jpg','27.jpg','28.jpg','29.jpg'],
+      group4:['30.jpg','31.jpg','32.jpg','33.jpg'],
+      group5:['34.jpg','35.jpg','36.jpg','37.jpg','38.jpg','39.jpg','40.jpg','41.jpg','42.jpg','43.jpg','44.jpg','45.jpg','46.jpg','47.jpg','48.jpg','49.jpg'],
+      group6:['49.jpg','50.jpg','51.jpg','52.jpg','53.jpg','54.jpg','55.jpg','56.jpg']
     };
     let currentGroup='', currentIndex=0;
     const slideshowOverlay=document.getElementById('slideshowOverlay');
@@ -909,9 +966,6 @@ membersOverlay.addEventListener("click", e => {
 
   membersBtn.addEventListener('click', toggleMembers);
 </script>
-
-
-
 
 </body>
 </html>
