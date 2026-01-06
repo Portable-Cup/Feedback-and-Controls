@@ -5,6 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PROJECT SIRIUS MK. II</title>
   <style>
+
+/* Sidebar logo */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.sidebar-logo img {
+  height: 60px;
+  width: auto;
+}
+
+
     /* --- Global Styles --- */
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
     html { scroll-behavior: smooth; }
@@ -15,7 +33,7 @@
   position: fixed;
   top: 0; 
   right: -400px; /* Hidden */
-  width: 350px; 
+  width: min(85vw, 350px); 
   height: 100%;
   background: rgba(10, 25, 47, 0.98); /* Deep Navy background */
   backdrop-filter: blur(15px);
@@ -102,7 +120,7 @@
       display:flex; align-items:center; justify-content:space-between;
       z-index:1000;
     }
-    header h1 { font-size:1.2rem; }
+    header h1 { font-size:1.1rem; }
     nav ul { list-style:none; display:flex; gap:1rem; align-items:center; margin:0; padding:0; }
     nav ul li a { color:#fff; text-decoration:none; font-weight:500; }
     nav ul li a:hover { color:#ffcc00; }
@@ -139,6 +157,9 @@
       border-radius:30px; cursor:pointer; border:none; font-size:1rem;
     }
     .scroll-down:hover{ background:#555; }
+	.narrative {
+	  scroll-margin-top: 96px;
+	}
 
     /* --- Narratives Section --- */
     .fade-in {
@@ -190,8 +211,24 @@
     .close-btn{ position:absolute; top:20px; right:24px; font-size:2rem; cursor:pointer; }
 
 .members-overlay {
-  background: rgba(0,0,0,0.9);
+  position: fixed;
+  top: 0;
+  left: -350px; /* hidden by default */
+  width: min(85vw, 350px);
+  height: 100%;
+  background: linear-gradient(180deg, #0a192f, #1a3b70); /* navy to blue gradient */
+  backdrop-filter: blur(10px); /* keeps it slightly glassy */
+  z-index: 3000;
+  padding: 5rem 2rem;
+  transition: 0.4s ease;
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+.members-overlay.active {
+  left: 0;
+}
+
 
 .members-list {
   text-align: left;
@@ -279,82 +316,88 @@
 
   <!-- Navbar -->
   <header>
-    <h1>Feedback and Controls System</h1>
+<h1>
+  Feedback and Controls System
+</h1>
     <nav>
       <ul>
         <li><a href="#home" onclick="closeOverlayImmediate()">Home</a></li>
         <li><span class="menu-icon" id="menuBtn">☰</span></li>
+	<li><span class="menu-icon" id="membersBtn">👤</span></li>
       </ul>
     </nav>
   </header>
 
 <div id="sideMenu" class="nav-sidebar">
+<div class="sidebar-logo">
+  <img src="bsee3alogo.jpg" alt="Logo">
+BSEE 3A
+</div>
+
   <span class="close-btn" onclick="toggleMenu()">×</span>
   <ul class="menu-list">
     <li><a href="#home" onclick="toggleMenu()">Home</a></li>
     <li><a href="#narratives" onclick="toggleMenu()">Introduction</a></li>
-    <li><a href="#narratives" onclick="toggleMenu()">Objectives</a></li>
-    <li><a href="#narratives" onclick="toggleMenu()">Review of Related Concepts</a></li>
+    <li><a href="#objectives" onclick="toggleMenu()">Objectives</a></li>
+    <li><a href="#Review of Related Concepts" onclick="toggleMenu()">Review of Related Concepts</a></li>
     
     <li class="has-children">
       <span class="menu-trigger">System Design and Methodology ▾</span>
       <ul class="sub-menu">
-        <li><a href="#narratives">- System Overview</a></li>
+        <li><a href="#System Overview"onclick="toggleMenu()">- System Overview</a></li>
         <li class="has-children">
           <span class="menu-trigger">- Hardware Design ▾</span>
           <ul class="sub-sub-menu">
-            <li><a href="#narratives">-- List of Components</a></li>
-            <li><a href="#narratives">-- Circuit Diagrams</a></li>
+            <li><a href="#List of Components"onclick="toggleMenu()">-- List of Components</a></li>
+            <li><a href="#Circuit Diagrams"onclick="toggleMenu()">-- Circuit Diagrams</a></li>
           </ul>
         </li>
-        <li><a href="#narratives">- Software Design</a></li>
-        <li><a href="#narratives">- Feedback Mechanism</a></li>
+        <li><a href="#Software Design"onclick="toggleMenu()">- Software Design</a></li>
+        <li><a href="#Feedback Mechanism"onclick="toggleMenu()">- Feedback Mechanism</a></li>
       </ul>
     </li>
 
-    <li><a href="#narratives" onclick="toggleMenu()">Mathematical Modeling and Analysis</a></li>
+    <li><a href="#Mathematical Modeling and Analysis" onclick="toggleMenu()"onclick="toggleMenu()">Mathematical Modeling and Analysis</a></li>
 
     <li class="has-children">
       <span class="menu-trigger">Implementation and Testing ▾</span>
       <ul class="sub-menu">
-        <li><a href="#narratives">- Prototype Development</a></li>
-        <li><a href="#narratives">- Experimental Setup and Testing</a></li>
-        <li><a href="#narratives">- Data Collection</a></li>
+        <li><a href="#Prototype Development"onclick="toggleMenu()">- Prototype Development</a></li>
+        <li><a href="#Experimental Setup and Testing"onclick="toggleMenu()">- Experimental Setup and Testing</a></li>
+        <li><a href="#Data Collection"onclick="toggleMenu()">- Data Collection</a></li>
       </ul>
     </li>
 
     <li class="has-children">
       <span class="menu-trigger">Results and Discussion ▾</span>
       <ul class="sub-menu">
-        <li><a href="#performance">- System Performance</a></li>
-        <li><a href="#theory">- Theoretical vs. Experimental</a></li>
-        <li><a href="#challenges">- Challenges</a></li>
+        <li><a href="#System Performance"onclick="toggleMenu()">- System Performance</a></li>
+        <li><a href="#Theoretical vs. Experimental"onclick="toggleMenu()">- Theoretical vs. Experimental</a></li>
+        <li><a href="#Challenges"onclick="toggleMenu()">- Challenges</a></li>
       </ul>
     </li>
 
     <li class="has-children">
       <span class="menu-trigger">Conclusion and Recommendations ▾</span>
       <ul class="sub-menu">
-        <li><a href="#summary">- Summary</a></li>
-        <li><a href="#limitations">- Limitations</a></li>
-        <li><a href="#recs">- Recommendations</a></li>
-        <li><a href="#refs">- References</a></li>
+        <li><a href="#Summary"onclick="toggleMenu()">- Summary</a></li>
+        <li><a href="#Limitations"onclick="toggleMenu()">- Limitations</a></li>
+        <li><a href="#Recommendations"onclick="toggleMenu()">- Recommendations</a></li>
       </ul>
     </li>
-
-    <li><a href="#appendices" onclick="toggleMenu()">Appendices</a></li>
-
-    <li class="has-children">
-      <span class="menu-trigger">Members ▾</span>
-      <ul class="sub-menu">
-        <li><a href="#group1"> Robot Arm</a></li>
-        <li><a href="#group2"> Base</a></li>
-        <li><a href="#group3"> Environmental Monitoring</a></li>
-        <li><a href="#group4"> Thermal Imaging</a></li>
-        <li><a href="#group5"> Vibration Sensor</a></li>
-        <li><a href="#group6"> Web Development</a></li>
-      </ul>
-    </li>
+    <li><a href="#References" onclick="toggleMenu()">References</a></li>
+    <li><a href="#Appendices" onclick="toggleMenu()">Appendices</a></li>
+  </ul>
+</div>
+<div id="membersSidebar" class="nav-sidebar members-overlay">
+  <span class="close-btn" onclick="toggleMembers()">×</span>
+  <ul class="menu-list">
+    <li><a href="#group1" onclick="toggleMembers()">Robot Arm</a></li>
+    <li><a href="#group2" onclick="toggleMembers()">Base</a></li>
+    <li><a href="#group3" onclick="toggleMembers()">Environmental Monitoring</a></li>
+    <li><a href="#group4" onclick="toggleMembers()">Thermal Imaging</a></li>
+    <li><a href="#group5" onclick="toggleMembers()">Vibration Sensor</a></li>
+    <li><a href="#group6" onclick="toggleMembers()">Web Development</a></li>
   </ul>
 </div>
 
